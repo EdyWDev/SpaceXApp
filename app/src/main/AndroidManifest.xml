@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceXApp"
         tools:targetApi="31">
-        <activity android:name=".ui.theme.history.HistoryActivity" />
+        <activity android:name="com.example.spacexapp.ui.theme.history.ui.HistoryActivity" />
         <activity
             android:name=".ui.theme.welcome.ui.WelcomeActivity"
             android:exported="true"

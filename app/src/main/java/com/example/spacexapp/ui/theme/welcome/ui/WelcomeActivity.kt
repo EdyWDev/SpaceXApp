@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.contextaware.ContextAware
 import androidx.activity.viewModels
 import androidx.compose.foundation.*
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -40,7 +41,7 @@ import com.example.spacexapp.ui.theme.BottomNavItem
 import com.example.spacexapp.ui.theme.DataProvider
 import com.example.spacexapp.ui.theme.SingleItemCell
 import com.example.spacexapp.ui.theme.SpaceXAppTheme
-import com.example.spacexapp.ui.theme.history.HistoryActivity
+import com.example.spacexapp.ui.theme.history.ui.HistoryActivity
 import com.example.spacexapp.ui.theme.welcome.WelcomeViewModel
 import com.example.spacexapp.ui.theme.welcome.WelcomeViewState
 import dagger.hilt.android.AndroidEntryPoint
@@ -97,7 +98,7 @@ fun NewWelcomeActivity(
             }
         )
     }
-        NavigationGraph(navController = navController)
+        //NavigationGraph(navController = navController)
     })
 }
 
@@ -182,16 +183,16 @@ fun HomeScreen() {
 @Composable
 fun History() {
     val mContext = LocalContext.current
+    val intent = Intent(mContext, HistoryActivity::class.java)
+    mContext.startActivity(intent)
     Column(
         modifier = Modifier
             .fillMaxSize()
 
+
         // .background(colorResource(id = R.color.teal_700))
         // .wrapContentSize(Alignment.Center)
     ) {
-        Button(onClick = { mContext.startActivity(Intent(mContext, HistoryActivity::class.java)) }) {
-
-        }
         Text(
             text = "History",
             fontWeight = FontWeight.Bold,
@@ -200,6 +201,7 @@ fun History() {
             textAlign = TextAlign.Center,
             fontSize = 20.sp
         )
+
     }
 }
 
@@ -222,7 +224,7 @@ fun Info() {
     }
 }
 
-@Composable
+/*@Composable
 fun NavigationGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = BottomNavItem.Home.screen_route) {
         composable(BottomNavItem.Home.screen_route) {
@@ -235,7 +237,7 @@ fun NavigationGraph(navController: NavHostController) {
             Info()
         }
     }
-}
+}*/
 
 @Composable
 fun BottomNavigation(navController: NavController) {
@@ -295,7 +297,7 @@ fun DefaultPreview() {
             )
 
         )
-        NavigationGraph(navController = navController)
+       // NavigationGraph(navController = navController)
         //  NavigationGraph(navController = )
         // MyFloatingActionButton(onClick = { /*TODO*/ })
     }
