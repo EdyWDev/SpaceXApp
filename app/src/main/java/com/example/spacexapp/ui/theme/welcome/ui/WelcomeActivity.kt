@@ -2,26 +2,23 @@ package com.example.spacexapp.ui.theme.welcome.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.contextaware.ContextAware
 import androidx.activity.viewModels
 import androidx.compose.foundation.*
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -31,9 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.spacexapp.R
@@ -77,31 +71,61 @@ fun NewWelcomeActivity(
     onItemClicked: (Int) -> Unit
 ) {
     val navController = rememberNavController()
-    Scaffold(
-        bottomBar = { BottomNavigation(navController = navController) },
-        content = { it
-            Column(modifier = Modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState())) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .paint(
+                        painterResource(id = R.drawable.cosmos),
+                        contentScale = ContentScale.FillHeight
+                    )
+
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .verticalScroll(rememberScrollState())
+                        .weight(1F)
+                ) {
+                    FirstView()
+                    state.cellList.forEach { item ->
+                        ListOfItems(items = item, onClick = onItemClicked)
+                    }
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(colorResource(id = R.color.white_transparent))
+                        .padding(
+                            horizontal = 16.dp,
+                            vertical = 8.dp
+                        ),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Icon(
+                        modifier = Modifier
+                            .size(48.dp)
+                            .clickable { },
+                        painter = painterResource(id = R.drawable.baseline_home_24),
+                        contentDescription = null
+                    )
+                    Icon(
+                        modifier = Modifier
+                            .size(48.dp)
+                            .clickable { },
+                        painter = painterResource(id = R.drawable.baseline_history_24),
+                        contentDescription = null
+                    )
+                    Icon(
+                        modifier = Modifier
+                            .size(48.dp)
+                            .clickable { },
+                        painter = painterResource(id = R.drawable.baseline_info_24),
+                        contentDescription = null
+                    )
+                }
             }
-    LazyColumn(
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-    ) {
-        item {
-            FirstView()
+            //NavigationGraph(navController = navController)
         }
-
-        items(
-            items = state.cellList,
-            itemContent = {
-                ListOfItems(items = it, onClick = onItemClicked)
-            }
-        )
-    }
-        //NavigationGraph(navController = navController)
-    })
-}
-
 
 @Composable
 fun ListOfItems(
@@ -112,7 +136,11 @@ fun ListOfItems(
         modifier = Modifier
             .padding(horizontal = 4.dp, vertical = 4.dp)
             .fillMaxWidth()
-            .border(1.dp, Color.White),
+            .border(
+                width = 1.dp,
+                color = Color.White,
+                shape = RoundedCornerShape(corner = CornerSize(16.dp))
+            ),
         elevation = 2.dp,
         backgroundColor = Color.Black,
         shape = RoundedCornerShape(corner = CornerSize(16.dp))
@@ -137,15 +165,17 @@ fun ListOfItems(
 
 @Composable
 fun FirstView() {
-    Card(
-        elevation = 4.dp,
-        shape = RoundedCornerShape(corner = CornerSize(16.dp))
-
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                horizontal = 8.dp,
+                vertical = 4.dp
+            ).paint(
+                painterResource(id = R.drawable.cosmos),
+                contentScale = ContentScale.FillWidth
+            )
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.cosmos),
-            contentDescription = null
-        )
         Text(
             modifier = Modifier
                 .border(1.dp, Color.Transparent)
@@ -266,15 +296,16 @@ fun BottomNavigation(navController: NavController) {
                 alwaysShowLabel = true,
                 selected = currentRoute == item.screen_route,
                 onClick = {
-                    navController.navigate(item.screen_route) {
-                        navController.graph.startDestinationRoute?.let { screen_route ->
-                            popUpTo(screen_route) {
-                                saveState = true
-                            }
-                        }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
+                    /* navController.navigate(item.screen_route) {
+                         navController.graph.startDestinationRoute?.let { screen_route ->
+                             popUpTo(screen_route) {
+                                 saveState = true
+                             }
+                         }
+                         launchSingleTop = true
+                         restoreState = true
+                     }*/
+                    Log.e("KKK", "${item.screen_route}")
                 }
             )
         }
@@ -297,7 +328,7 @@ fun DefaultPreview() {
             )
 
         )
-       // NavigationGraph(navController = navController)
+        // NavigationGraph(navController = navController)
         //  NavigationGraph(navController = )
         // MyFloatingActionButton(onClick = { /*TODO*/ })
     }
