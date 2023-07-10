@@ -1,7 +1,7 @@
 package com.example.spacexapp.ui.theme.history
 
-import com.example.spacexapp.ui.theme.history.model.HistoryDetails
+import com.example.spacexapp.ui.theme.history.model.SpaceXHistory
 
-class HistoryViewState {
-    val historyList: List<HistoryDetails> = TODO()
-}
+data class HistoryViewState(
+    val historyList: List<SpaceXHistory> = emptyList()
+)

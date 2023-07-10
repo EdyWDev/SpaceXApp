@@ -1,6 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -10,6 +13,7 @@ android {
     defaultConfig {
         applicationId "com.example.spacexapp"
         minSdk 24
+        compileSdk 33
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -45,6 +49,8 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+
+    buildToolsVersion '33.0.0'
 }
 
 dependencies {
@@ -76,7 +82,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
     // Hilt
     implementation 'com.google.dagger:hilt-android:2.44'
-//    kapt 'com.google.dagger:hilt-android-compiler:2.44'
+    kapt 'com.google.dagger:hilt-android-compiler:2.44'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

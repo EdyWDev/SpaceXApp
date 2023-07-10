@@ -36,6 +36,7 @@ import com.example.spacexapp.ui.theme.DataProvider
 import com.example.spacexapp.ui.theme.SingleItemCell
 import com.example.spacexapp.ui.theme.SpaceXAppTheme
 import com.example.spacexapp.ui.theme.history.ui.HistoryActivity
+import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToSpaceXHistory
 import com.example.spacexapp.ui.theme.welcome.WelcomeViewModel
 import com.example.spacexapp.ui.theme.welcome.WelcomeViewState
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,7 +49,6 @@ class WelcomeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SpaceXAppTheme {
-                // A surface container using the 'background' color from the theme
                 val state by viewModel.viewState.collectAsState()
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -56,7 +56,8 @@ class WelcomeActivity : ComponentActivity() {
                 ) {
                     NewWelcomeActivity(
                         state = state,
-                        onItemClicked = viewModel::onItemCellClicked
+                        onItemClicked = viewModel::onItemCellClicked,
+                        onHistoryClicked = { navigateToSpaceXHistory() }
                     )
                 }
             }
@@ -68,64 +69,73 @@ class WelcomeActivity : ComponentActivity() {
 @Composable
 fun NewWelcomeActivity(
     state: WelcomeViewState,
-    onItemClicked: (Int) -> Unit
+    onItemClicked: (Int) -> Unit,
+    onHistoryClicked: () -> Unit
 ) {
-    val navController = rememberNavController()
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .paint(
-                        painterResource(id = R.drawable.cosmos),
-                        contentScale = ContentScale.FillHeight
-                    )
+    val context = LocalContext.current
+    // val navController = rememberNavController()
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .paint(
+                painterResource(id = R.drawable.cosmos),
+                contentScale = ContentScale.FillHeight
+            )
 
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .verticalScroll(rememberScrollState())
-                        .weight(1F)
-                ) {
-                    FirstView()
-                    state.cellList.forEach { item ->
-                        ListOfItems(items = item, onClick = onItemClicked)
-                    }
-                }
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(colorResource(id = R.color.white_transparent))
-                        .padding(
-                            horizontal = 16.dp,
-                            vertical = 8.dp
-                        ),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Icon(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clickable { },
-                        painter = painterResource(id = R.drawable.baseline_home_24),
-                        contentDescription = null
-                    )
-                    Icon(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clickable { },
-                        painter = painterResource(id = R.drawable.baseline_history_24),
-                        contentDescription = null
-                    )
-                    Icon(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clickable { },
-                        painter = painterResource(id = R.drawable.baseline_info_24),
-                        contentDescription = null
-                    )
-                }
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+                .weight(1F)
+        ) {
+            FirstView()
+            state.cellList.forEach { item ->
+                ListOfItems(items = item, onClick = onItemClicked)
             }
-            //NavigationGraph(navController = navController)
         }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(colorResource(id = R.color.white_transparent))
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 8.dp
+                ),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Icon(
+                modifier = Modifier
+                    .size(48.dp)
+                    .clickable {
+                    },
+                painter = painterResource(id = R.drawable.baseline_home_24),
+                contentDescription = null
+            )
+            Icon(
+                modifier = Modifier
+                    .size(48.dp)
+                    .clickable {
+                        onHistoryClicked.invoke()
+                        /* Intent(context, HistoryActivity::class.java).apply {
+                             context.startActivity(this)
+                         }*/
+
+                    },
+                painter = painterResource(id = R.drawable.baseline_history_24),
+                contentDescription = null
+            )
+            Icon(
+                modifier = Modifier
+                    .size(48.dp)
+                    .clickable { },
+                painter = painterResource(id = R.drawable.baseline_info_24),
+                contentDescription = null
+            )
+        }
+    }
+    //NavigationGraph(navController = navController)
+}
 
 @Composable
 fun ListOfItems(
@@ -171,7 +181,8 @@ fun FirstView() {
             .padding(
                 horizontal = 8.dp,
                 vertical = 4.dp
-            ).paint(
+            )
+            .paint(
                 painterResource(id = R.drawable.cosmos),
                 contentScale = ContentScale.FillWidth
             )
@@ -325,8 +336,8 @@ fun DefaultPreview() {
             state = WelcomeViewState(
                 cellList = DataProvider.clickableItemsList,
                 navigationBottomCellList = DataProvider.navigationItems
-            )
-
+            ),
+            onHistoryClicked = {}
         )
         // NavigationGraph(navController = navController)
         //  NavigationGraph(navController = )

@@ -1,6 +1,7 @@
 package com.example.spacexapp.ui.theme.service
 
 import com.example.spacexapp.ui.theme.service.model.HistoryDTO
+import com.example.spacexapp.ui.theme.service.model.HistoryListDTO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
@@ -11,5 +12,5 @@ import javax.inject.Inject
 
 interface SpaceXService {
     @GET
-    suspend fun getHistoryDetails(@Url url: String): HistoryDTO
+    suspend fun getHistoryDetails(@Url url: String): HistoryListDTO
 }
