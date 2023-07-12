@@ -21,7 +21,11 @@ object DataProvider {
     val clickableItemsList = listOf(
         SingleItemCell(
             id = 1,
-            name = "LAUNCHES"
+            name = "FEATURED MISSION"
+        ),
+        SingleItemCell(
+            id = 4,
+            name = "LATEST LAUNCHES"
         ),
        /* SingleItemCell(
             id = 2,
@@ -31,19 +35,16 @@ object DataProvider {
             id = 3,
             name = "LANDING PADS"
         ),*/
-        SingleItemCell(
-            id = 4,
-            name = "MISSIONS"
-        ),
+
        /* SingleItemCell(
             id = 5,
             name = "PAYLOADS"
         ),*/
-        SingleItemCell(
+        /*SingleItemCell(
             id = 6,
-            name = "ROCKETS"
-        ),
-        SingleItemCell(
+            name = "VEHICLESS"
+        ),*/
+      /*  SingleItemCell(
             id = 7,
             name = "ROADSTER"
         ),
@@ -58,7 +59,7 @@ object DataProvider {
         SingleItemCell(
             id = 10,
             name = "DRAGONS"
-        ),
+        ),*/
       /*  SingleItemCell(
             id = 11,
             name = "CORES"

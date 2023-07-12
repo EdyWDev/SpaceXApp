@@ -1,4 +1,4 @@
-package com.example.spacexapp.ui.theme.history.ui
+package com.example.spacexapp.ui.theme.di.history.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -23,9 +23,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.spacexapp.ui.theme.SpaceXAppTheme
-import com.example.spacexapp.ui.theme.history.HistoryViewModel
-import com.example.spacexapp.ui.theme.history.HistoryViewState
-import com.example.spacexapp.ui.theme.history.model.SpaceXHistory
+import com.example.spacexapp.ui.theme.di.history.HistoryViewModel
+import com.example.spacexapp.ui.theme.di.history.HistoryViewState
+import com.example.spacexapp.ui.theme.di.history.model.SpaceXHistory
 import dagger.hilt.android.AndroidEntryPoint
 
 

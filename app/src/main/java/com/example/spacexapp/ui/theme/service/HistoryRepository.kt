@@ -1,7 +1,7 @@
 package com.example.spacexapp.ui.theme.service
 
-import com.example.spacexapp.ui.theme.history.model.LinksModel
-import com.example.spacexapp.ui.theme.history.model.SpaceXHistory
+import com.example.spacexapp.ui.theme.di.history.model.LinksModel
+import com.example.spacexapp.ui.theme.di.history.model.SpaceXHistory
 import com.example.spacexapp.ui.theme.service.model.HistoryDTO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

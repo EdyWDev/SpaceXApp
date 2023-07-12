@@ -1,4 +1,4 @@
-package com.example.spacexapp.ui.theme.history.model
+package com.example.spacexapp.ui.theme.di.history.model
 
 data class SpaceXHistory(
     var id: String?,
