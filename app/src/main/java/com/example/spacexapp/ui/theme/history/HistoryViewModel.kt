@@ -28,10 +28,10 @@ class HistoryViewModel @Inject constructor(
             try {
                 val historyResponse = historyRepository.getSpaceXHistory()
                 _viewState.update {
-                    it.copy(historyList = historyResponse.historyDetails ?: emptyList())
+                    it.copy(historyList = historyResponse)
                 }
             } catch (e: Exception) {
-                Log.e("EEE", "COS TU NIE GRA")
+                Log.e("EEE", "COS TU NIE GRA, ${e.message}")
             }
         }
     }

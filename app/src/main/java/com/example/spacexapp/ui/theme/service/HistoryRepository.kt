@@ -1,37 +1,33 @@
 package com.example.spacexapp.ui.theme.service
 
-import com.example.spacexapp.ui.theme.history.model.HistoryDetails
+import com.example.spacexapp.ui.theme.history.model.LinksModel
 import com.example.spacexapp.ui.theme.history.model.SpaceXHistory
-import com.example.spacexapp.ui.theme.service.model.HistoryListDTO
+import com.example.spacexapp.ui.theme.service.model.HistoryDTO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 class HistoryRepository(
     private val spaceXService: SpaceXService
 ) {
-
-    suspend fun getSpaceXHistory(): HistoryDetails =
+    suspend fun getSpaceXHistory(): List<SpaceXHistory> =
         withContext(Dispatchers.IO) {
-            val url = "https://api.spacexdata.com/v3/"
-            spaceXService.getHistoryDetails(url).toDomainHistoryModel()
+            spaceXService.getHistoryDetails(url = HISTORY).map { it.toDomainHistoryModel() }
         }
 }
 
-fun HistoryListDTO?.toDomainHistoryModel(): HistoryDetails {
-    return HistoryDetails(historyDetails = this?.historyDetails?.map {
-        SpaceXHistory(
-            id = it.id,
-            title = it.title,
-            eventData = it.eventData,
-            flightNumber = it.flightNumber,
-            details = it.details,
-            links1 = it.links1,
-            links2 = it.links2,
-            links3 = it.links3
+fun HistoryDTO?.toDomainHistoryModel(): SpaceXHistory {
+    return SpaceXHistory(
+            id = this?.id,
+            title = this?.title,
+            eventData = this?.eventData,
+            flightNumber = this?.flightNumber,
+            details = this?.details,
+            links = LinksModel(
+                reddit = this?.links?.reddit,
+                wikipedia = this?.links?.wikipedia,
+                article = this?.links?.article
+            )
         )
     }
-    )
-}
 
-private const val HISTORY = "https://api.spacexdata.com/v3/history"
+private const val HISTORY = "history"

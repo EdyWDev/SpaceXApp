@@ -5,12 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -60,25 +59,27 @@ class HistoryActivity : ComponentActivity() {
 fun HistoryItemScreen(
     state: HistoryViewState,
 ) {
-    Card(
-        elevation = 4.dp,
-        shape = RoundedCornerShape(corner = CornerSize(16.dp)),
-        modifier = Modifier.fillMaxWidth(),
-        backgroundColor = Color.Magenta
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
+
+        // To powinien byc toolbar albo topAppBar chyba po nowemu
         Text(
             modifier = Modifier
-                .border(1.dp, Color.Transparent)
-                .padding(horizontal = 15.dp, vertical = 26.dp),
-            text = " ",
-            color = Color.White,
-            fontSize = 35.sp,
+                .fillMaxWidth()
+                .border(1.dp, Color.Gray)
+                .padding(horizontal = 16.dp, vertical = 16.dp),
+            text = "Szczególy historii",
+            color = Color.Black,
+            fontSize = 18.sp,
+        )
 
-            )
-
-    }
-    state.historyList.forEach { item ->
-        ListOfHistoryItems(items = item)
+        state.historyList.forEach { item ->
+            ListOfHistoryItems(items = item)
+        }
     }
 }
 
@@ -86,118 +87,26 @@ fun HistoryItemScreen(
 fun ListOfHistoryItems(items: SpaceXHistory) {
     Card(
         modifier = Modifier
-            .padding(4.dp)
             .fillMaxWidth()
             .border(
                 width = 1.dp,
                 color = Color.White,
-                shape = RoundedCornerShape(corner = CornerSize(16.dp))
             ),
-        elevation = 2.dp,
+        elevation = 4.dp,
         backgroundColor = Color.White,
-        shape = RoundedCornerShape(corner = CornerSize(16.dp))
+        shape = RoundedCornerShape(corner = CornerSize(8.dp))
     ) {
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-        ) {
-            items.title?.let { title ->
-                Text(
-                    text = title,
-                    color = Color.Black,
-                    fontSize = 8.sp,
-                    textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-
-
+        items.title?.let { title ->
+            Text(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
+                text = title,
+                color = Color.Black,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
-
     }
 }
-
-/*@Composable
-fun ListOfHistoryItems(
-    historyItems: SpaceXHistory,
-    //historyRepository: HistoryRepository
-) {
-    Card(
-        modifier = Modifier
-            .padding(horizontal = 4.dp, vertical = 4.dp)
-            .fillMaxWidth()
-            .border(1.dp, Color.White),
-        elevation = 2.dp,
-        backgroundColor = Color.Transparent,
-        shape = RoundedCornerShape(corner = CornerSize(16.dp))
-    ) {
-        LaunchedEffect(Unit){
-            val result = withContext(Dispatchers.IO){
-     //           apiResultState.loadHistory()
-            }
-
-        }
-         Column(
-            modifier = Modifier
-                .padding(16.dp)
-
-        ) {
-            Row(
-                modifier = Modifier
-                    .padding(16.dp)
-            ) {
-                historyItems.title?.let {
-                    Text(
-                        text = it,
-                        color = Color.Black,
-                        fontSize = 20.sp
-                    )
-                }
-                historyItems.eventData?.let {
-                    Text(
-                        text = it,
-                        color = Color.Black,
-                        fontSize = 20.sp
-
-                    )
-                }
-            }
-             historyItems.details?.let {
-                 Text(
-                     text = it,
-                     color = Color.Black,
-                     fontSize = 20.sp
-                 )
-             }
-             historyItems.links1?.let {
-                 Text(
-                     text = it,
-                     color = Color.Black,
-                     fontSize = 20.sp
-                 )
-             }
-             historyItems.links2?.let {
-                 Text(
-                     text = it,
-                     color = Color.Black,
-                     fontSize = 20.sp
-
-                 )
-             }
-             historyItems.links3?.let {
-                 Text(
-                     text = it,
-                     color = Color.Black,
-                     fontSize = 20.sp
-
-                 )
-             }
-        }
-
-    }
-    }*/
-
 
 @Preview(showBackground = true)
 @Composable

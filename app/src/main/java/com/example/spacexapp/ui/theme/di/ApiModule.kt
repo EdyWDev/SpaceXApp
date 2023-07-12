@@ -27,6 +27,7 @@ object ApiModule {
             .baseUrl("https://api.spacexdata.com/v3/")
             .addConverterFactory(GsonConverterFactory.create(gson))
 
+
     @Singleton
     @Provides
     fun provideSpaceXService(retrofit: Retrofit.Builder): SpaceXService =
