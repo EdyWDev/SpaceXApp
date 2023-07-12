@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -56,44 +57,36 @@ class HistoryActivity : ComponentActivity() {
 fun HistoryItemScreen(
     state: HistoryViewState,
 ) {
-
-    /*Scaffold(
+    Scaffold(
         topBar = {
             TopAppBar(
+                backgroundColor = Color.DarkGray,
                 title = {
                     Text(
-                        text = "History Details: "
+                        text = "History Details:",
+                        color = Color.White,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center
                     )
-                },
-                backgroundColor = Color.Black
+                }
             )
-        },
-    content =
-    )*/
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .verticalScroll(rememberScrollState())
-            .padding(8.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
-        TopAppBar(
-            title = { Text(text = "History details:")},
-            backgroundColor = Color.Black,
-            contentColor = Color.White,
+        }
+    ) { innerPadding ->
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .border(
-                width = 0.dp,
-                color = Color.White,
-                shape = RoundedCornerShape(corner = CornerSize(8.dp)))
-                .padding(8.dp)
+                .padding(paddingValues = innerPadding)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
         )
-
-        state.historyList.forEach { item ->
-            ListOfHistoryItems(items = item)
+        {
+            state.historyList.forEach { item ->
+                ListOfHistoryItems(items = item)
+            }
         }
     }
+
+
 }
 
 
