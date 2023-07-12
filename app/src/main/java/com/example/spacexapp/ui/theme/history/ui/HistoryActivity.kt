@@ -10,17 +10,14 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,22 +56,38 @@ class HistoryActivity : ComponentActivity() {
 fun HistoryItemScreen(
     state: HistoryViewState,
 ) {
+
+    /*Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "History Details: "
+                    )
+                },
+                backgroundColor = Color.Black
+            )
+        },
+    content =
+    )*/
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-
-        // To powinien byc toolbar albo topAppBar chyba po nowemu
-        Text(
+        TopAppBar(
+            title = { Text(text = "History details:")},
+            backgroundColor = Color.Black,
+            contentColor = Color.White,
             modifier = Modifier
                 .fillMaxWidth()
-                .border(1.dp, Color.Gray)
-                .padding(horizontal = 16.dp, vertical = 16.dp),
-            text = "Szczególy historii",
-            color = Color.Black,
-            fontSize = 18.sp,
+                .border(
+                width = 0.dp,
+                color = Color.White,
+                shape = RoundedCornerShape(corner = CornerSize(8.dp)))
+                .padding(8.dp)
         )
 
         state.historyList.forEach { item ->
@@ -83,29 +96,87 @@ fun HistoryItemScreen(
     }
 }
 
+
 @Composable
 fun ListOfHistoryItems(items: SpaceXHistory) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .border(
-                width = 1.dp,
+                width = 0.dp,
                 color = Color.White,
-            ),
+                shape = RoundedCornerShape(corner = CornerSize(8.dp))
+            )
+            .padding(8.dp),
         elevation = 4.dp,
-        backgroundColor = Color.White,
+        backgroundColor = Color.Transparent,
         shape = RoundedCornerShape(corner = CornerSize(8.dp))
     ) {
-        items.title?.let { title ->
-            Text(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
-                text = title,
-                color = Color.Black,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold
-            )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+
+        ) {
+            items.title?.let { title ->
+                Text(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                    text = title,
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontStyle = FontStyle.Italic
+                )
+            }
+            items.eventData?.let { evenData ->
+                Text(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                    text = evenData,
+                    color = Color.White,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+
+            }
+            items.details?.let { details ->
+                Text(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                    text = "Details: $details",
+                    color = Color.White,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            items.links.article?.let { article ->
+                Text(
+                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
+                    text = article,
+                    color = Color.White,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            items.links.wikipedia?.let { wikipedia ->
+                Text(
+                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
+                    text = wikipedia,
+                    color = Color.White,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            items.links.reddit?.let { reddit ->
+                Text(
+                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
+                    text = reddit,
+                    color = Color.White,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
+
 }
 
 @Preview(showBackground = true)
