@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.textInputServiceFactory
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -73,7 +74,6 @@ fun NewWelcomeActivity(
     onHistoryClicked: () -> Unit
 ) {
     val context = LocalContext.current
-    // val navController = rememberNavController()
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -229,10 +229,6 @@ fun History() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-
-
-        // .background(colorResource(id = R.color.teal_700))
-        // .wrapContentSize(Alignment.Center)
     ) {
         Text(
             text = "History",
@@ -251,8 +247,6 @@ fun Info() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-        // .background(colorResource(id = R.color.teal_700))
-        // .wrapContentSize(Alignment.Center)
     ) {
         Text(
             text = "Info",
@@ -264,21 +258,6 @@ fun Info() {
         )
     }
 }
-
-/*@Composable
-fun NavigationGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = BottomNavItem.Home.screen_route) {
-        composable(BottomNavItem.Home.screen_route) {
-            HomeScreen()
-        }
-        composable(BottomNavItem.History.screen_route) {
-            History()
-        }
-        composable(BottomNavItem.Info.screen_route) {
-            Info()
-        }
-    }
-}*/
 
 @Composable
 fun BottomNavigation(navController: NavController) {
@@ -307,15 +286,6 @@ fun BottomNavigation(navController: NavController) {
                 alwaysShowLabel = true,
                 selected = currentRoute == item.screen_route,
                 onClick = {
-                    /* navController.navigate(item.screen_route) {
-                         navController.graph.startDestinationRoute?.let { screen_route ->
-                             popUpTo(screen_route) {
-                                 saveState = true
-                             }
-                         }
-                         launchSingleTop = true
-                         restoreState = true
-                     }*/
                     Log.e("KKK", "${item.screen_route}")
                 }
             )

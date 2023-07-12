@@ -23,22 +23,22 @@ object DataProvider {
             id = 1,
             name = "LAUNCHES"
         ),
-        SingleItemCell(
+       /* SingleItemCell(
             id = 2,
             name = "LAUNCH PADS"
         ),
         SingleItemCell(
             id = 3,
             name = "LANDING PADS"
-        ),
+        ),*/
         SingleItemCell(
             id = 4,
             name = "MISSIONS"
         ),
-        SingleItemCell(
+       /* SingleItemCell(
             id = 5,
             name = "PAYLOADS"
-        ),
+        ),*/
         SingleItemCell(
             id = 6,
             name = "ROCKETS"
@@ -59,10 +59,10 @@ object DataProvider {
             id = 10,
             name = "DRAGONS"
         ),
-        SingleItemCell(
+      /*  SingleItemCell(
             id = 11,
             name = "CORES"
-        )
+        )*/
     )
 }
 
