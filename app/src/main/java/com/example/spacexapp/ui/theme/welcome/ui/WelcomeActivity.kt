@@ -9,7 +9,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
@@ -17,6 +19,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -83,7 +87,6 @@ fun NewWelcomeActivity(
                 .padding(paddingValues = innerPadding)
         )
         {
-
             val context = LocalContext.current
             Column(
                 modifier = Modifier
@@ -94,7 +97,29 @@ fun NewWelcomeActivity(
                     )
 
             ) {
-                SearchBar()
+                // SearchBar()
+                Card(
+                    modifier = Modifier
+                        .padding(horizontal = 4.dp, vertical = 4.dp)
+                        .fillMaxWidth()
+                        .border(
+                            width = 1.dp,
+                            color = Color.Black,
+                            shape = RoundedCornerShape(corner = CornerSize(16.dp))
+                        ),
+                    elevation = 2.dp,
+                    backgroundColor = Color.Transparent,
+                    shape = RoundedCornerShape(corner = CornerSize(16.dp))
+                ) {
+                    Text(
+                        text = "Welcome to Rocket Tracker",
+                        color = Color.White,
+                        textAlign = TextAlign.Center,
+                        fontSize = 90.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        fontWeight = FontWeight.ExtraLight
+                    )
+                }
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -122,7 +147,8 @@ fun NewWelcomeActivity(
                             .clickable {
                             },
                         painter = painterResource(id = R.drawable.baseline_home_24),
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = Color.Black
                     )
                     Icon(
                         modifier = Modifier
@@ -130,7 +156,8 @@ fun NewWelcomeActivity(
                             .clickable {
                             },
                         painter = painterResource(id = R.drawable.baseline_home_24),
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = Color.Black
                     )
                     Icon(
                         modifier = Modifier
@@ -138,7 +165,8 @@ fun NewWelcomeActivity(
                             .clickable {
                             },
                         painter = painterResource(id = R.drawable.baseline_home_24),
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = Color.Black
                     )
                     Icon(
                         modifier = Modifier
@@ -147,14 +175,16 @@ fun NewWelcomeActivity(
                                 onHistoryClicked.invoke()
                             },
                         painter = painterResource(id = R.drawable.baseline_history_24),
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = Color.Black
                     )
                     Icon(
                         modifier = Modifier
                             .size(48.dp)
                             .clickable { },
                         painter = painterResource(id = R.drawable.baseline_info_24),
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = Color.Black
                     )
                 }
             }
@@ -162,7 +192,7 @@ fun NewWelcomeActivity(
     }
 }
 
-@Composable
+/*@Composable
 fun SearchBar() {
     var text by remember { mutableStateOf("") }
 
@@ -187,7 +217,7 @@ fun SearchBar() {
                 shape = RoundedCornerShape(corner = CornerSize(16.dp))
             )
     )
-}
+}*/
 
 @Composable
 fun ListOfItems(
@@ -200,7 +230,7 @@ fun ListOfItems(
             .fillMaxWidth()
             .border(
                 width = 1.dp,
-                color = Color.White,
+                color = Color.Black,
                 shape = RoundedCornerShape(corner = CornerSize(16.dp))
             ),
         elevation = 2.dp,
@@ -221,7 +251,9 @@ fun ListOfItems(
                 text = items.name,
                 color = Color.White,
                 textAlign = TextAlign.Center,
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                fontFamily = FontFamily.Monospace,
+                fontWeight = FontWeight.Bold
             )
         }
     }
