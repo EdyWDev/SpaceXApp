@@ -25,11 +25,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
 import com.example.spacexapp.R
 import com.example.spacexapp.ui.theme.DataProvider
 import com.example.spacexapp.ui.theme.SingleItemCell
 import com.example.spacexapp.ui.theme.SpaceXAppTheme
+import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToCompanyInfo
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToSpaceXHistory
 import com.example.spacexapp.ui.theme.welcome.WelcomeViewModel
 import com.example.spacexapp.ui.theme.welcome.WelcomeViewState
@@ -51,7 +51,8 @@ class WelcomeActivity : ComponentActivity() {
                     NewWelcomeActivity(
                         state = state,
                         onItemClicked = viewModel::onItemCellClicked,
-                        onHistoryClicked = { navigateToSpaceXHistory() }
+                        onHistoryClicked = { navigateToSpaceXHistory() },
+                        onCompanyInfoClicked = { navigateToCompanyInfo() }
                     )
                 }
             }
@@ -64,7 +65,8 @@ class WelcomeActivity : ComponentActivity() {
 fun NewWelcomeActivity(
     state: WelcomeViewState,
     onItemClicked: (Int) -> Unit,
-    onHistoryClicked: () -> Unit
+    onHistoryClicked: () -> Unit,
+    onCompanyInfoClicked: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -104,7 +106,7 @@ fun NewWelcomeActivity(
                         .fillMaxWidth()
                         .border(
                             width = 1.dp,
-                            color = Color.Black,
+                            color = Color.White,
                             shape = RoundedCornerShape(corner = CornerSize(16.dp))
                         ),
                     elevation = 2.dp,
@@ -128,7 +130,7 @@ fun NewWelcomeActivity(
                 ) {
 
                     state.cellList.forEach { item ->
-                        ListOfItems(items = item, onClick = onItemClicked)
+                        ListOfItems(items = item, onClick = onItemClicked/*, itemLaunches = item*/)
                     }
                 }
                 Row(
@@ -181,7 +183,9 @@ fun NewWelcomeActivity(
                     Icon(
                         modifier = Modifier
                             .size(48.dp)
-                            .clickable { },
+                            .clickable {
+                                onCompanyInfoClicked.invoke()
+                            },
                         painter = painterResource(id = R.drawable.baseline_info_24),
                         contentDescription = null,
                         tint = Color.Black
@@ -192,36 +196,10 @@ fun NewWelcomeActivity(
     }
 }
 
-/*@Composable
-fun SearchBar() {
-    var text by remember { mutableStateOf("") }
-
-    TextField(
-        value = text,
-        onValueChange = { text = it },
-        label = { Icon(modifier =
-        Modifier
-            .size(48.dp)
-            .clickable {
-            },
-        painter = painterResource(id = R.drawable.baseline_search_24),
-            contentDescription = null
-        ) },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 4.dp, vertical = 4.dp)
-            .background(Color.Transparent)
-            .border(
-                width = 1.dp,
-                color = Color.White,
-                shape = RoundedCornerShape(corner = CornerSize(16.dp))
-            )
-    )
-}*/
-
 @Composable
 fun ListOfItems(
     items: SingleItemCell,
+    //  itemLaunches: SingleItemCell,
     onClick: (Int) -> Unit
 ) {
     Card(
@@ -230,7 +208,7 @@ fun ListOfItems(
             .fillMaxWidth()
             .border(
                 width = 1.dp,
-                color = Color.Black,
+                color = Color.White,
                 shape = RoundedCornerShape(corner = CornerSize(16.dp))
             ),
         elevation = 2.dp,
@@ -255,6 +233,22 @@ fun ListOfItems(
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold
             )
+            /*  if (items.id == 2) {
+                  Row(
+                      modifier = Modifier
+                          .padding(16.dp)
+                          .fillMaxWidth()
+                  ) {
+                      Text(
+                          text = itemLaunches,
+                          color = Color.White,
+                          textAlign = TextAlign.Center,
+                          fontSize = 16.sp,
+                          fontFamily = FontFamily.Monospace,
+                          fontWeight = FontWeight.Bold
+                      )
+                  }
+              }*/
         }
     }
 }
@@ -265,54 +259,15 @@ fun ListOfItems(
 fun DefaultPreview() {
 
     SpaceXAppTheme {
-        val navController = rememberNavController()
-        //WelcomeCard()
         NewWelcomeActivity(
             onItemClicked = {},
             state = WelcomeViewState(
                 cellList = DataProvider.clickableItemsList,
-                navigationBottomCellList = DataProvider.navigationItems
+                //    navigationBottomCellList = DataProvider.navigationItems
             ),
-            onHistoryClicked = {}
+            onHistoryClicked = {},
+            onCompanyInfoClicked = {}
         )
     }
 }
 
-/*@Composable
-    fun BottomNavigation(navController: NavController) {
-        val items = listOf(
-            BottomNavItem.History,
-            BottomNavItem.Home,
-            BottomNavItem.Info
-        )
-        BottomNavigation(
-            backgroundColor = colorResource(id = R.color.white),
-            contentColor = Color.Black
-        ) {
-            val navBackStackEntry by navController.currentBackStackEntryAsState()
-            val currentRoute = navBackStackEntry?.destination?.route
-            items.forEach { item ->
-                BottomNavigationItem(
-                    icon = {
-                        Icon(
-                            painterResource(id = item.icon),
-                            contentDescription = item.title
-                        )
-                    },
-                    label = {
-                        Text(
-                            text = item.title,
-                            fontSize = 9.sp
-                        )
-                    },
-                    selectedContentColor = Color.Black,
-                    unselectedContentColor = Color.Black.copy(0.4f),
-                    alwaysShowLabel = true,
-                    selected = currentRoute == item.screen_route,
-                    onClick = {
-                        Log.e("KKK", "${item.screen_route}")
-                    }
-                )
-            }
-        }
-    }*/

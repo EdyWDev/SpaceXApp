@@ -1,4 +1,4 @@
-package com.example.spacexapp.ui.theme.di.history
+package com.example.spacexapp.ui.theme.history
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

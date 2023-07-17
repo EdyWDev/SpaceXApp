@@ -5,17 +5,16 @@ data class SingleItemCell(
     val name: String
 )
 
-data class NavigationBottomCell(
+data class LaunchesItemCell(
     val id: Int,
     val name: String
 )
 
 object DataProvider {
     val navigationItems = listOf(
-        NavigationBottomCell(name = "HOME", id = 1),
-        NavigationBottomCell(name = "HISTORY", id = 2),
-        NavigationBottomCell(name = "INFO", id = 3),
-        NavigationBottomCell(name = "ABOUT", id = 4),
+        LaunchesItemCell(name = "LAND PADS", id = 1),
+        LaunchesItemCell(name = "LAUNCHPADS", id = 2),
+        LaunchesItemCell(name = "INFO", id = 3),
 
         )
     val clickableItemsList = listOf(
@@ -24,7 +23,7 @@ object DataProvider {
             name = "FEATURED MISSION"
         ),
         SingleItemCell(
-            id = 4,
+            id = 2,
             name = "LATEST LAUNCHES"
         ),
        /* SingleItemCell(
