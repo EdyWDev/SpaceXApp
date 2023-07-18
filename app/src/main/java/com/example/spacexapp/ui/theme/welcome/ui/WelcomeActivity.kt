@@ -1,5 +1,6 @@
 package com.example.spacexapp.ui.theme.welcome.ui
 
+import android.graphics.Paint.Align
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,6 +13,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
@@ -141,55 +143,99 @@ fun NewWelcomeActivity(
                             horizontal = 16.dp,
                             vertical = 8.dp
                         ),
+                        //.height(80.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Icon(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clickable {
-                            },
-                        painter = painterResource(id = R.drawable.baseline_home_24),
-                        contentDescription = null,
-                        tint = Color.Black
-                    )
-                    Icon(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clickable {
-                            },
-                        painter = painterResource(id = R.drawable.baseline_home_24),
-                        contentDescription = null,
-                        tint = Color.Black
-                    )
-                    Icon(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clickable {
-                            },
-                        painter = painterResource(id = R.drawable.baseline_home_24),
-                        contentDescription = null,
-                        tint = Color.Black
-                    )
-                    Icon(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clickable {
-                                onHistoryClicked.invoke()
-                            },
-                        painter = painterResource(id = R.drawable.baseline_history_24),
-                        contentDescription = null,
-                        tint = Color.Black
-                    )
-                    Icon(
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clickable {
-                                onCompanyInfoClicked.invoke()
-                            },
-                        painter = painterResource(id = R.drawable.baseline_info_24),
-                        contentDescription = null,
-                        tint = Color.Black
-                    )
+                    Button(
+                        onClick = onHistoryClicked,
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+                       // modifier = Modifier.height(50.dp).width(80.dp)
+                    ) {
+                        Column {
+                            Icon(
+                                modifier = Modifier
+                                    .size(36.dp)
+                                    .clickable {
+                                        onHistoryClicked.invoke()
+                                    },
+                                painter = painterResource(id = R.drawable.rocket),
+                                contentDescription = "Rocket",
+                                tint = Color.Black,
+                            )
+                            Spacer(modifier = Modifier.size(0.dp))
+                            Text(
+                                text = "Rocket",
+                                color = Color.Black
+                            )
+                        }
+                    }
+                    Button(
+                        onClick = onHistoryClicked,
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+                    ) {
+                        Column {
+                            Icon(
+                                modifier = Modifier
+                                    .size(36.dp)
+                                    .clickable {
+                                        onHistoryClicked.invoke()
+                                    },
+                                painter = painterResource(id = R.drawable.mission),
+                                contentDescription = "Missions",
+                                tint = Color.Black,
+                            )
+                            Spacer(modifier = Modifier.size(0.dp))
+                            Text(
+                                text = "Mission",
+                                color = Color.Black
+                            )
+                        }
+                    }
+                    Button(
+                        onClick = onHistoryClicked,
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+                    ) {
+                       Column {
+                           Icon(
+                               modifier = Modifier
+                                   .size(36.dp)
+                                   .clickable {
+                                       onHistoryClicked.invoke()
+                                   },
+                               painter = painterResource(id = R.drawable.baseline_history_24),
+                               contentDescription = "History",
+                               tint = Color.Black,
+                           )
+                           Spacer(modifier = Modifier.size(0.dp))
+                           Text(
+                               text = "History",
+                               color = Color.Black
+                           )
+                       }
+                    }
+                    Button(
+                        onClick = onHistoryClicked,
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+                    ) {
+                       Column {
+                           Icon(
+                               modifier = Modifier
+                                   .size(36.dp)
+                                   .clickable {
+                                       onCompanyInfoClicked.invoke()
+                                   },
+                               painter = painterResource(id = R.drawable.baseline_info_24),
+                               contentDescription = null,
+                               tint = Color.Black
+                           )
+                           Spacer(modifier = Modifier.size(0.dp))
+                           Text(
+                               text = "Info",
+                               color = Color.Black,
+                               textAlign = TextAlign.Center
+                           )
+                       }
+                    }
                 }
             }
         }
