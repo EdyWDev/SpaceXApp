@@ -160,36 +160,6 @@ fun ListOfHistoryItems(items: SpaceXHistory) {
                     fontStyle = FontStyle.Italic,
                 )
             }
-            /*items.links.article?.let { article ->
-                Text(
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                    text = article,
-                    color = Color.White,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Light,
-                    fontStyle = FontStyle.Italic,
-                )
-            }*/
-           /* items.links.wikipedia?.let { wikipedia ->
-                Text(
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                    text = wikipedia,
-                    color = Color.White,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Light,
-                    fontStyle = FontStyle.Italic,
-                )
-            }*/
-            /*items.links.reddit?.let { reddit ->
-                Text(
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                    text = reddit,
-                    color = Color.White,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Light,
-                    fontStyle = FontStyle.Italic,
-                )
-            }*/
             Button(
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 8.dp)

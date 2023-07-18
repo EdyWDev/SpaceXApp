@@ -32,6 +32,8 @@ import com.example.spacexapp.ui.theme.DataProvider
 import com.example.spacexapp.ui.theme.SingleItemCell
 import com.example.spacexapp.ui.theme.SpaceXAppTheme
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToCompanyInfo
+import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToMission
+import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToRocket
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToSpaceXHistory
 import com.example.spacexapp.ui.theme.welcome.WelcomeViewModel
 import com.example.spacexapp.ui.theme.welcome.WelcomeViewState
@@ -54,7 +56,10 @@ class WelcomeActivity : ComponentActivity() {
                         state = state,
                         onItemClicked = viewModel::onItemCellClicked,
                         onHistoryClicked = { navigateToSpaceXHistory() },
-                        onCompanyInfoClicked = { navigateToCompanyInfo() }
+                        onCompanyInfoClicked = { navigateToCompanyInfo() },
+                        onMissionClicked = {navigateToMission()},
+                        onRocketClicked = {navigateToRocket()}
+
                     )
                 }
             }
@@ -68,7 +73,9 @@ fun NewWelcomeActivity(
     state: WelcomeViewState,
     onItemClicked: (Int) -> Unit,
     onHistoryClicked: () -> Unit,
-    onCompanyInfoClicked: () -> Unit
+    onCompanyInfoClicked: () -> Unit,
+    onMissionClicked: () -> Unit,
+    onRocketClicked:() -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -147,16 +154,15 @@ fun NewWelcomeActivity(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Button(
-                        onClick = onHistoryClicked,
+                        onClick = onRocketClicked,
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
-                       // modifier = Modifier.height(50.dp).width(80.dp)
                     ) {
                         Column {
                             Icon(
                                 modifier = Modifier
                                     .size(36.dp)
                                     .clickable {
-                                        onHistoryClicked.invoke()
+                                        onRocketClicked.invoke()
                                     },
                                 painter = painterResource(id = R.drawable.rocket),
                                 contentDescription = "Rocket",
@@ -170,7 +176,7 @@ fun NewWelcomeActivity(
                         }
                     }
                     Button(
-                        onClick = onHistoryClicked,
+                        onClick = onMissionClicked,
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                     ) {
                         Column {
@@ -178,7 +184,7 @@ fun NewWelcomeActivity(
                                 modifier = Modifier
                                     .size(36.dp)
                                     .clickable {
-                                        onHistoryClicked.invoke()
+                                        onMissionClicked.invoke()
                                     },
                                 painter = painterResource(id = R.drawable.mission),
                                 contentDescription = "Missions",
@@ -279,22 +285,6 @@ fun ListOfItems(
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold
             )
-            /*  if (items.id == 2) {
-                  Row(
-                      modifier = Modifier
-                          .padding(16.dp)
-                          .fillMaxWidth()
-                  ) {
-                      Text(
-                          text = itemLaunches,
-                          color = Color.White,
-                          textAlign = TextAlign.Center,
-                          fontSize = 16.sp,
-                          fontFamily = FontFamily.Monospace,
-                          fontWeight = FontWeight.Bold
-                      )
-                  }
-              }*/
         }
     }
 }
@@ -312,7 +302,9 @@ fun DefaultPreview() {
                 //    navigationBottomCellList = DataProvider.navigationItems
             ),
             onHistoryClicked = {},
-            onCompanyInfoClicked = {}
+            onCompanyInfoClicked = {},
+            onRocketClicked = {},
+            onMissionClicked = {}
         )
     }
 }
