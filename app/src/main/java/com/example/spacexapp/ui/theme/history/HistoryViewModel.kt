@@ -3,7 +3,7 @@ package com.example.spacexapp.ui.theme.history
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.spacexapp.ui.theme.service.HistoryRepository
+import com.example.spacexapp.ui.theme.service.SpaceXRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HistoryViewModel @Inject constructor(
-    private val historyRepository: HistoryRepository
+    private val spaceXRepository: SpaceXRepository
 ) : ViewModel() {
 
     private val _viewState = MutableStateFlow(value = HistoryViewState())
@@ -26,7 +26,7 @@ class HistoryViewModel @Inject constructor(
     private fun loadHistory() {
         viewModelScope.launch {
             try {
-                val historyResponse = historyRepository.getSpaceXHistory()
+                val historyResponse = spaceXRepository.getSpaceXHistory()
                 _viewState.update {
                     it.copy(historyList = historyResponse)
                 }

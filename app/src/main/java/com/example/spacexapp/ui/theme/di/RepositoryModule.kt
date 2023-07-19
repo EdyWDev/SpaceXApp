@@ -1,6 +1,6 @@
 package com.example.spacexapp.ui.theme.di
 
-import com.example.spacexapp.ui.theme.service.HistoryRepository
+import com.example.spacexapp.ui.theme.service.SpaceXRepository
 import com.example.spacexapp.ui.theme.service.SpaceXService
 import dagger.Module
 import dagger.Provides
@@ -17,6 +17,6 @@ object RepositoryModule {
     @Provides
     fun provideSpaceXRepository(
         spaceXService: SpaceXService
-    ): HistoryRepository =
-        HistoryRepository(spaceXService)
+    ): SpaceXRepository =
+        SpaceXRepository(spaceXService)
 }

@@ -4,7 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -50,7 +56,7 @@ fun RocketItemScreen(
                 elevation = 4.dp,
                 title = {
                     Text(
-                        text = "Rocket:",
+                        text = "Rockets:",
                         color = Color.Black,
                         modifier = Modifier.fillMaxWidth(),
                     )
@@ -66,7 +72,22 @@ fun RocketItemScreen(
 
             )
         }
-    ) { innerPadding ->{}}
+    ) { innerPadding ->
+        Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(paddingValues = innerPadding)
+            .padding(horizontal = 16.dp, vertical = 16.dp)
+            .verticalScroll(rememberScrollState())
+            .background(color = Color.Black),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+    ){}
+    }
+}
+
+@Composable
+fun ListOfRockets(){
+
 }
 
 @Preview
