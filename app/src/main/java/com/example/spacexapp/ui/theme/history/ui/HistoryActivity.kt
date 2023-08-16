@@ -113,12 +113,12 @@ fun ListOfHistoryItems(items: SpaceXHistory) {
         modifier = Modifier
             //  .padding(horizontal = 8.dp, vertical = 8.dp)
             .fillMaxWidth()
+            .padding(horizontal = 8.dp, vertical = 8.dp)
             .border(
                 width = 0.dp,
                 color = Color.White,
                 shape = RoundedCornerShape(corner = CornerSize(8.dp))
-            )
-            .padding(horizontal = 4.dp, vertical = 4.dp),
+            ),
         elevation = 4.dp,
         backgroundColor = Color.Transparent,
         shape = RoundedCornerShape(corner = CornerSize(8.dp))

@@ -24,7 +24,7 @@ object DataProvider {
         ),
         SingleItemCell(
             id = 2,
-            name = "LATEST LAUNCHES"
+            name = "UPCOMING LAUNCHES"
         ),
        /* SingleItemCell(
             id = 2,

@@ -1,5 +1,6 @@
-package com.example.spacexapp.ui.theme.service.model
+package com.example.spacexapp.ui.theme.history.model
 
+import com.example.spacexapp.ui.theme.service.model.LinksDTO
 import com.google.gson.annotations.SerializedName
 
 class HistoryDTO (

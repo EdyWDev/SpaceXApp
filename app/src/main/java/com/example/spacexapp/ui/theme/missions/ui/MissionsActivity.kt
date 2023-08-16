@@ -21,6 +21,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -46,7 +47,7 @@ class MissionsActivity : ComponentActivity() {
                 val state by viewModel.viewState.collectAsState()
                 Surface(
                     modifier = Modifier.fillMaxSize()
-                ){
+                ) {
                     MissionTrucker(
                         state = state,
                         onClicked = { navigateToWelcomeActivity() }
@@ -101,6 +102,7 @@ fun MissionTrucker(
 
 @Composable
 fun ListOfMissions(items: SpaceXMissions) {
+    val handler = LocalUriHandler.current
     Card(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -155,7 +157,11 @@ fun ListOfMissions(items: SpaceXMissions) {
                         color = Color.White,
                         shape = RoundedCornerShape(corner = CornerSize(16.dp))
                     ),
-                onClick = { /*TODO*/ },
+                onClick = {
+                    items.wikipedia?.let { it ->
+                        handler.openUri(it)
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
             ) {
                 Text(
@@ -176,7 +182,11 @@ fun ListOfMissions(items: SpaceXMissions) {
                         color = Color.White,
                         shape = RoundedCornerShape(corner = CornerSize(16.dp))
                     ),
-                onClick = { /*TODO*/ },
+                onClick = {
+                    items.website?.let { it ->
+                        handler.openUri(it)
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
             ) {
                 Text(
@@ -186,23 +196,14 @@ fun ListOfMissions(items: SpaceXMissions) {
                     color = Color.White
                 )
             }
-            /*  items.
-              Text(
-                  text = "Manufactures: ORBITAL ATK",
-                  color = Color.White,
-                  textAlign = TextAlign.Start,
-                  fontSize = 16.sp,
-                  fontFamily = FontFamily.Monospace,
-                  fontWeight = FontWeight.Bold
-              )*/
             items.description?.let { description ->
                 Text(
                     text = description,
                     color = Color.White,
                     textAlign = TextAlign.Start,
                     fontSize = 16.sp,
-                    fontFamily = FontFamily.Monospace,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Light,
+                    fontStyle = FontStyle.Italic
                 )
 
             }

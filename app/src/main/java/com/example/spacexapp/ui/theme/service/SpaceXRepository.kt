@@ -4,7 +4,7 @@ import com.example.spacexapp.ui.theme.history.model.LinksModel
 import com.example.spacexapp.ui.theme.history.model.SpaceXHistory
 import com.example.spacexapp.ui.theme.missions.model.MissionsDTO
 import com.example.spacexapp.ui.theme.missions.model.SpaceXMissions
-import com.example.spacexapp.ui.theme.service.model.HistoryDTO
+import com.example.spacexapp.ui.theme.history.model.HistoryDTO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
