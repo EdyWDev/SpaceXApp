@@ -5,4 +5,6 @@ import com.example.spacexapp.ui.theme.SingleItemCell
 
 class WelcomeViewState(
     val cellList : List<SingleItemCell> = DataProvider.clickableItemsList,
+    val isLoading: Boolean = false,
+    val shouldOpenNewActivity: Boolean = false
 )

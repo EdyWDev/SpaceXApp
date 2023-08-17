@@ -7,6 +7,8 @@ import com.example.spacexapp.ui.theme.companyinfo.CompanyInfoActivity
 import com.example.spacexapp.ui.theme.history.ui.HistoryActivity
 import com.example.spacexapp.ui.theme.missions.ui.MissionsActivity
 import com.example.spacexapp.ui.theme.rocket.ui.RocketActivity
+import com.example.spacexapp.ui.theme.upcomingmissions.ui.UpcomingMissions
+import com.example.spacexapp.ui.theme.upcomingmissions.ui.UpcomingMissionsActivity
 import com.example.spacexapp.ui.theme.welcome.ui.WelcomeActivity
 
 object SpaceXNavigationManager {
@@ -29,6 +31,12 @@ object SpaceXNavigationManager {
     }
     fun Activity.navigateToRocket(){
         Intent(this, RocketActivity::class.java).apply {
+            startActivity(this@apply)
+        }
+    }
+
+    fun Activity.navigateToUpcomingMission(){
+        Intent(this, UpcomingMissionsActivity::class.java).apply {
             startActivity(this@apply)
         }
     }

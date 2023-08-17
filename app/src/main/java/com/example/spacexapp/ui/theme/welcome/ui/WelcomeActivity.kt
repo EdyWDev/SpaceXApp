@@ -1,7 +1,7 @@
 package com.example.spacexapp.ui.theme.welcome.ui
 
-import android.graphics.Paint.Align
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -13,7 +13,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
@@ -35,6 +34,7 @@ import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToMission
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToRocket
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToSpaceXHistory
+import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToUpcomingMission
 import com.example.spacexapp.ui.theme.welcome.WelcomeViewModel
 import com.example.spacexapp.ui.theme.welcome.WelcomeViewState
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,12 +53,14 @@ class WelcomeActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
                     NewWelcomeActivity(
+                        //viewModel = viewModel,
                         state = state,
                         onItemClicked = viewModel::onItemCellClicked,
                         onHistoryClicked = { navigateToSpaceXHistory() },
                         onCompanyInfoClicked = { navigateToCompanyInfo() },
-                        onMissionClicked = {navigateToMission()},
-                        onRocketClicked = {navigateToRocket()}
+                        onMissionClicked = { navigateToMission() },
+                        onRocketClicked = { navigateToRocket() },
+                        onUpcomingMissions = { navigateToUpcomingMission() }
 
                     )
                 }
@@ -75,8 +77,11 @@ fun NewWelcomeActivity(
     onHistoryClicked: () -> Unit,
     onCompanyInfoClicked: () -> Unit,
     onMissionClicked: () -> Unit,
-    onRocketClicked:() -> Unit
+    onRocketClicked: () -> Unit,
+    onUpcomingMissions: () -> Unit
+
 ) {
+    // val viewState: WelcomeViewState by viewModel.viewState.collectAsState(WelcomeViewState())
     Scaffold(
         topBar = {
             TopAppBar(
@@ -139,7 +144,13 @@ fun NewWelcomeActivity(
                 ) {
 
                     state.cellList.forEach { item ->
-                        ListOfItems(items = item, onClick = onItemClicked/*, itemLaunches = item*/)
+                        ListOfItems(items = item) {
+                            if (item.id == 2){
+                                onUpcomingMissions.invoke()
+                            } else{
+                                Log.e("EEEE", "onClick from ${item.id}")
+                            }
+                        }
                     }
                 }
                 Row(
@@ -150,7 +161,7 @@ fun NewWelcomeActivity(
                             horizontal = 16.dp,
                             vertical = 8.dp
                         ),
-                        //.height(80.dp),
+                    //.height(80.dp),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Button(
@@ -201,51 +212,59 @@ fun NewWelcomeActivity(
                         onClick = onHistoryClicked,
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
                     ) {
-                       Column {
-                           Icon(
-                               modifier = Modifier
-                                   .size(36.dp)
-                                   .clickable {
-                                       onHistoryClicked.invoke()
-                                   },
-                               painter = painterResource(id = R.drawable.baseline_history_24),
-                               contentDescription = "History",
-                               tint = Color.Black,
-                           )
-                           Spacer(modifier = Modifier.size(0.dp))
-                           Text(
-                               text = "History",
-                               color = Color.Black
-                           )
-                       }
+                        Column {
+                            Icon(
+                                modifier = Modifier
+                                    .size(36.dp)
+                                    .clickable {
+                                        onHistoryClicked.invoke()
+                                    },
+                                painter = painterResource(id = R.drawable.baseline_history_24),
+                                contentDescription = "History",
+                                tint = Color.Black,
+                            )
+                            Spacer(modifier = Modifier.size(0.dp))
+                            Text(
+                                text = "History",
+                                color = Color.Black
+                            )
+                        }
                     }
                     Button(
                         onClick = onHistoryClicked,
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
                     ) {
-                       Column {
-                           Icon(
-                               modifier = Modifier
-                                   .size(36.dp)
-                                   .clickable {
-                                       onCompanyInfoClicked.invoke()
-                                   },
-                               painter = painterResource(id = R.drawable.baseline_info_24),
-                               contentDescription = null,
-                               tint = Color.Black
-                           )
-                           Spacer(modifier = Modifier.size(0.dp))
-                           Text(
-                               text = "Info",
-                               color = Color.Black,
-                               textAlign = TextAlign.Center
-                           )
-                       }
+                        Column {
+                            Icon(
+                                modifier = Modifier
+                                    .size(36.dp)
+                                    .clickable {
+                                        onCompanyInfoClicked.invoke()
+                                    },
+                                painter = painterResource(id = R.drawable.baseline_info_24),
+                                contentDescription = null,
+                                tint = Color.Black
+                            )
+                            Spacer(modifier = Modifier.size(0.dp))
+                            Text(
+                                text = "Info",
+                                color = Color.Black,
+                                textAlign = TextAlign.Center
+                            )
+                        }
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+private fun OnButtonClick(
+    viewModel: WelcomeViewModel
+) {
+    val newState = WelcomeViewState(shouldOpenNewActivity = true)
+    viewModel.updateViewState(newState)
 }
 
 @Composable
@@ -274,6 +293,12 @@ fun ListOfItems(
                 .fillMaxWidth()
                 .clickable {
                     onClick.invoke(items.id)
+                    /*if (items.id == 2) {
+                        onUpcomingMissions.invoke()
+                    } else {
+                        Log.e("EEEE", "onClick from ${items.id}")
+                    }*/
+
                 }
 
         ) {
@@ -296,6 +321,7 @@ fun DefaultPreview() {
 
     SpaceXAppTheme {
         NewWelcomeActivity(
+            // viewModel = viewModel(),
             onItemClicked = {},
             state = WelcomeViewState(
                 cellList = DataProvider.clickableItemsList,
@@ -304,7 +330,8 @@ fun DefaultPreview() {
             onHistoryClicked = {},
             onCompanyInfoClicked = {},
             onRocketClicked = {},
-            onMissionClicked = {}
+            onMissionClicked = {},
+            onUpcomingMissions = {}
         )
     }
 }
