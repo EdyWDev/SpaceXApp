@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.sp
 import com.example.spacexapp.ui.theme.SpaceXAppTheme
 import com.example.spacexapp.ui.theme.missions.MissionsViewModel
 import com.example.spacexapp.ui.theme.missions.MissionsViewState
-import com.example.spacexapp.ui.theme.missions.model.SpaceXMissions
+import com.example.spacexapp.ui.theme.missions.model.MissionsModel
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToWelcomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -101,7 +101,7 @@ fun MissionTrucker(
 }
 
 @Composable
-fun ListOfMissions(items: SpaceXMissions) {
+fun ListOfMissions(items: MissionsModel) {
     val handler = LocalUriHandler.current
     Card(
         modifier = Modifier

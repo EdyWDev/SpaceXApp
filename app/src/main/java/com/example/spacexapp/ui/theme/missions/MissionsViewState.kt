@@ -1,7 +1,7 @@
 package com.example.spacexapp.ui.theme.missions
 
-import com.example.spacexapp.ui.theme.missions.model.SpaceXMissions
+import com.example.spacexapp.ui.theme.missions.model.MissionsModel
 
 data class MissionsViewState (
-    val missionsList: List<SpaceXMissions> = emptyList()
+    val missionsList: List<MissionsModel> = emptyList()
         )

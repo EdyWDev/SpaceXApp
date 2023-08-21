@@ -1,7 +1,7 @@
 package com.example.spacexapp.ui.theme.history
 
-import com.example.spacexapp.ui.theme.history.model.SpaceXHistory
+import com.example.spacexapp.ui.theme.history.model.HistoryModel
 
 data class HistoryViewState(
-    val historyList: List<SpaceXHistory> = emptyList()
+    val historyList: List<HistoryModel> = emptyList()
 )

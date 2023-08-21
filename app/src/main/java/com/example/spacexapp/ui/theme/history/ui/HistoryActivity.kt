@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.example.spacexapp.ui.theme.SpaceXAppTheme
 import com.example.spacexapp.ui.theme.history.HistoryViewModel
 import com.example.spacexapp.ui.theme.history.HistoryViewState
-import com.example.spacexapp.ui.theme.history.model.SpaceXHistory
+import com.example.spacexapp.ui.theme.history.model.HistoryModel
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToWelcomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -107,7 +107,7 @@ fun HistoryItemScreen(
 
 
 @Composable
-fun ListOfHistoryItems(items: SpaceXHistory) {
+fun ListOfHistoryItems(items: HistoryModel) {
     val handler = LocalUriHandler.current
     Card(
         modifier = Modifier
