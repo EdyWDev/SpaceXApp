@@ -3,6 +3,7 @@ package com.example.spacexapp.ui.theme.navigationManager
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import com.example.spacexapp.ui.theme.allLaunches.ui.AllLaunchesActivity
 import com.example.spacexapp.ui.theme.companyinfo.CompanyInfoActivity
 import com.example.spacexapp.ui.theme.history.ui.HistoryActivity
 import com.example.spacexapp.ui.theme.missions.ui.MissionsActivity
@@ -37,6 +38,12 @@ object SpaceXNavigationManager {
 
     fun Activity.navigateToUpcomingMission(){
         Intent(this, UpcomingMissionsActivity::class.java).apply {
+            startActivity(this@apply)
+        }
+    }
+
+    fun Activity.navigateToAllLaunches(){
+        Intent(this, AllLaunchesActivity::class.java).apply {
             startActivity(this@apply)
         }
     }

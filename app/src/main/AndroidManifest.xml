@@ -19,6 +19,7 @@
         <activity android:name=".ui.theme.missions.ui.MissionsActivity"/>
         <activity android:name=".ui.theme.rocket.ui.RocketActivity"/>
         <activity android:name=".ui.theme.upcomingmissions.ui.UpcomingMissionsActivity"/>
+        <activity android:name=".ui.theme.allLaunches.ui.AllLaunchesActivity"/>
 
         <activity
             android:name=".ui.theme.welcome.ui.WelcomeActivity"

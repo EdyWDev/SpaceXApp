@@ -30,6 +30,7 @@ import com.example.spacexapp.R
 import com.example.spacexapp.ui.theme.DataProvider
 import com.example.spacexapp.ui.theme.SingleItemCell
 import com.example.spacexapp.ui.theme.SpaceXAppTheme
+import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToAllLaunches
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToCompanyInfo
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToMission
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToRocket
@@ -60,7 +61,8 @@ class WelcomeActivity : ComponentActivity() {
                         onCompanyInfoClicked = { navigateToCompanyInfo() },
                         onMissionClicked = { navigateToMission() },
                         onRocketClicked = { navigateToRocket() },
-                        onUpcomingMissions = { navigateToUpcomingMission() }
+                        onUpcomingMissions = { navigateToUpcomingMission() },
+                        onAllLaunches = {navigateToAllLaunches()}
 
                     )
                 }
@@ -78,7 +80,8 @@ fun NewWelcomeActivity(
     onCompanyInfoClicked: () -> Unit,
     onMissionClicked: () -> Unit,
     onRocketClicked: () -> Unit,
-    onUpcomingMissions: () -> Unit
+    onUpcomingMissions: () -> Unit,
+    onAllLaunches: () -> Unit
 
 ) {
     // val viewState: WelcomeViewState by viewModel.viewState.collectAsState(WelcomeViewState())
@@ -147,9 +150,12 @@ fun NewWelcomeActivity(
                         ListOfItems(items = item) {
                             if (item.id == 2){
                                 onUpcomingMissions.invoke()
+                            }else if(item.id == 1){
+                                onAllLaunches.invoke()
                             } else{
                                 Log.e("EEEE", "onClick from ${item.id}")
                             }
+
                         }
                     }
                 }
@@ -331,7 +337,8 @@ fun DefaultPreview() {
             onCompanyInfoClicked = {},
             onRocketClicked = {},
             onMissionClicked = {},
-            onUpcomingMissions = {}
+            onUpcomingMissions = {},
+            onAllLaunches = {}
         )
     }
 }
