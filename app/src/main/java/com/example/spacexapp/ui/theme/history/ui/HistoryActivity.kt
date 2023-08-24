@@ -44,8 +44,7 @@ class HistoryActivity : ComponentActivity() {
             SpaceXAppTheme {
                 val state by viewModel.viewState.collectAsState()
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    //       color = MaterialTheme.colors.primary
+                    modifier = Modifier.fillMaxSize()
                 ) {
                     HistoryItemScreen(
                         state = state,
@@ -77,7 +76,7 @@ fun HistoryItemScreen(
                 backgroundColor = Color.White,
                 navigationIcon = {
                     IconButton(onClick = { onClicked.invoke() }) {
-                        Icon(Icons.Filled.ArrowBack, null)
+                        Icon(Icons.Filled.ArrowBack, null, tint = Color.Black)
 
                     }
                 }

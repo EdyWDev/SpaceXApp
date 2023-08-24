@@ -78,7 +78,7 @@ fun InfoView(
                 backgroundColor = Color.White,
                 navigationIcon = {
                     IconButton(onClick = {onClicked.invoke()}) {
-                        Icon(Icons.Filled.ArrowBack, null)
+                        Icon(Icons.Filled.ArrowBack, null, tint = Color.Black)
                         
                     }
                 }

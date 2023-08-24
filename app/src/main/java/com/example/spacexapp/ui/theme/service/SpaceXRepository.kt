@@ -7,6 +7,9 @@ import com.example.spacexapp.ui.theme.history.model.HistoryModel
 import com.example.spacexapp.ui.theme.history.model.LinksModel
 import com.example.spacexapp.ui.theme.missions.model.MissionsDTO
 import com.example.spacexapp.ui.theme.missions.model.MissionsModel
+import com.example.spacexapp.ui.theme.rocket.model.RocketDTO
+import com.example.spacexapp.ui.theme.rocket.model.RocketHeightModel
+import com.example.spacexapp.ui.theme.rocket.model.RocketModel
 import com.example.spacexapp.ui.theme.upcomingmissions.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -34,6 +37,23 @@ class SpaceXRepository(
         withContext(Dispatchers.IO) {
             spaceXService.getAllLaunches(url = ALLLAUNCHES).map { it.toDomainAllLaunchesModel() }
         }
+
+    suspend fun getRocket(): List<RocketModel> =
+        withContext(Dispatchers.IO){
+            spaceXService.getRocketModel(url = ROCKET).map { it.toDomainRocketsModel() }
+        }
+}
+
+fun RocketDTO.toDomainRocketsModel(): RocketModel{
+    return RocketModel(
+        rocketName = this.rocketName,
+        description = this.description,
+        height = RocketHeightModel(
+            feet = this.height.feet,
+            meters = this.height.meters
+        )
+
+    )
 }
 
 fun AllLaunchesDTO.toDomainAllLaunchesModel(): AllLaunchesModel {
@@ -51,7 +71,7 @@ fun UpcomingMissionsDTO.toDomainUpcomingMissionsModel(): UpcomingMissionsModel {
         missionName = this.missionName,
         launchYear = this.launchYear,
         launchDateLocal = this.launchDateLocal,
-        rocketInUpcoming = RocketModel(
+        rocketInUpcoming = RocketInUpcomingMissionsModel(
             rocketId = this.rocketInUpcoming?.rocketId,
             rocketName = this.rocketInUpcoming?.rocketName,
             rocketType = this.rocketInUpcoming?.rocketType
@@ -102,3 +122,4 @@ private const val HISTORY = "history"
 private const val MISSION = "missions"
 private const val UPCOMINGMISSIONS = "launches/upcoming"
 private const val ALLLAUNCHES = "launches"
+private const val ROCKET = "rockets"

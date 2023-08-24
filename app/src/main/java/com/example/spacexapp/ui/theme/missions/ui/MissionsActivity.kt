@@ -77,7 +77,7 @@ fun MissionTrucker(
                 },
                 navigationIcon = {
                     IconButton(onClick = { onClicked.invoke() }) {
-                        Icon(Icons.Filled.ArrowBack, null)
+                        Icon(Icons.Filled.ArrowBack, null, tint = Color.Black)
 
                     }
                 }

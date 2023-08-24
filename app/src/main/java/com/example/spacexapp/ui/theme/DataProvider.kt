@@ -8,7 +8,7 @@ object DataProvider {
     val clickableItemsList = listOf(
         SingleItemCell(
             id = 1,
-            name = "FEATURED MISSION"
+            name = "ALL LAUNCHES"
         ),
         SingleItemCell(
             id = 2,
