@@ -7,10 +7,10 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -20,36 +20,39 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.SavedStateHandle
+import com.example.spacexapp.R
 import com.example.spacexapp.ui.theme.SpaceXAppTheme
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToWelcomeActivity
 import com.example.spacexapp.ui.theme.rocket.RocketViewModel
 import com.example.spacexapp.ui.theme.rocket.RocketViewState
+import com.example.spacexapp.ui.theme.rocket.model.LandingLegsModel
+import com.example.spacexapp.ui.theme.rocket.model.RocketHeightModel
+import com.example.spacexapp.ui.theme.rocket.model.RocketMassModel
 import com.example.spacexapp.ui.theme.rocket.model.RocketModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RocketActivity:ComponentActivity() {
+class RocketActivity : ComponentActivity() {
     private val viewModel: RocketViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent{
+        setContent {
             SpaceXAppTheme {
                 val state by viewModel.viewState.collectAsState()
                 Surface(
-                   // modifier = Modifier.fillMaxWidth()
-                     //   .background(color = Color.Blue),
-                color = Color.Black
-
-                ){
+                    modifier = Modifier.fillMaxSize(),
+                    color = Color.Black
+                ) {
                     RocketItemScreen(
                         state = state,
-                        onClicked = {navigateToWelcomeActivity()}
+                        onClicked = { navigateToWelcomeActivity() }
                     )
                 }
             }
@@ -61,21 +64,23 @@ class RocketActivity:ComponentActivity() {
 fun RocketItemScreen(
     state: RocketViewState,
     onClicked: () -> Unit
-){
+) {
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        containerColor = Color.Black,
         topBar = {
             TopAppBar(
                 elevation = 4.dp,
                 title = {
                     Text(
-                        text = "Rockets Catalog:",
+                        text = stringResource(R.string.Rockets_Catalog),
                         color = Color.Black,
                         modifier = Modifier.fillMaxWidth(),
                     )
                 },
                 backgroundColor = Color.White,
                 navigationIcon = {
-                    IconButton(onClick = {onClicked.invoke()}) {
+                    IconButton(onClick = { onClicked.invoke() }) {
                         Icon(Icons.Filled.ArrowBack, null, tint = Color.Black)
 
                     }
@@ -83,17 +88,17 @@ fun RocketItemScreen(
             )
         }
     ) { innerPadding ->
-        Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(paddingValues = innerPadding)
-            .padding(horizontal = 16.dp, vertical = 16.dp)
-            .verticalScroll(rememberScrollState())
-            .background(color = Color.Black),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
-    ){
-            state.rocketList.forEach {item->
-                ListOfRockets(items = item)
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(paddingValues = innerPadding)
+                .padding(horizontal = 8.dp, vertical = 8.dp)
+                //.verticalScroll(rememberScrollState())
+                .background(color = Color.Black),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            items(items = state.rocketList) { model ->
+                ListOfRockets(item = model)
             }
         }
     }
@@ -101,67 +106,232 @@ fun RocketItemScreen(
 
 @Composable
 fun ListOfRockets(
-    items: RocketModel
-){
+    item: RocketModel
+) {
     Card(
         modifier = Modifier
-        .fillMaxWidth()
-        .padding(horizontal = 8.dp, vertical = 8.dp)
-        .border(
-            width = 0.dp,
-            color = Color.White,
-            shape = RoundedCornerShape(corner = CornerSize(8.dp))
-        ),
+            .fillMaxSize()
+            .padding(horizontal = 8.dp, vertical = 8.dp)
+            .border(
+                width = 0.dp,
+                color = Color.White,
+                shape = RoundedCornerShape(corner = CornerSize(8.dp))
+            ),
         elevation = 4.dp,
         backgroundColor = Color.Transparent,
         shape = RoundedCornerShape(corner = CornerSize(8.dp))
-    ){
+    ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .background(color = Color.Black)
-        ){
+        ) {
             Text(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                text ="Rocket: ${ items.rocketName }",
+                text = "Rocket: ${item.rocketName}",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontStyle = FontStyle.Italic
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = "Rocket Type: ${item.rocketType}",
+                color = Color.White,
+                fontWeight = FontWeight.Light,
+                fontStyle = FontStyle.Italic
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = "Rocket ID: ${item.rocketID}",
+                color = Color.White,
+                fontWeight = FontWeight.Light,
+                fontStyle = FontStyle.Italic
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = item.description,
+                color = Color.White,
+                fontWeight = FontWeight.Light,
+                fontStyle = FontStyle.Italic
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = "Height: ${item.height.meters} meters",
+                color = Color.White,
+                fontWeight = FontWeight.Light,
+                fontStyle = FontStyle.Italic
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = "Mass: ${item.mass.kg} kg",
+                color = Color.White,
+                fontWeight = FontWeight.Light,
+                fontStyle = FontStyle.Italic
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = "Diameter: ${item.height.feet} meters",
+                color = Color.White,
+                fontWeight = FontWeight.Light,
+                fontStyle = FontStyle.Italic
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = "First flight: ${item.firstFlight}",
+                color = Color.White,
+                fontStyle = FontStyle.Italic,
+                fontWeight = FontWeight.Light
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = "Country: ${item.country}",
+                color = Color.White,
+                fontStyle = FontStyle.Italic,
+                fontWeight = FontWeight.Light
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = "Cost per Launch: ${item.costPerLaunch}",
                 color = Color.White,
                 fontWeight = FontWeight.Light,
                 fontStyle = FontStyle.Italic
             )
             Text(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                text =  "Height: ${items.height.meters} meters" ,
+                text = item.wikipediaURL,
                 color = Color.White,
-                fontWeight = FontWeight.Light,
-                fontStyle = FontStyle.Italic
+                fontStyle = FontStyle.Italic,
+                fontWeight = FontWeight.Light
             )
-            Text(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                text =  "Diameter: ${items.height.feet} meters" ,
-                color = Color.White,
-                fontWeight = FontWeight.Light,
-                fontStyle = FontStyle.Italic
-            )
-            Text(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                text = items.description,
-                color = Color.White,
-                fontWeight = FontWeight.Light,
-                fontStyle = FontStyle.Italic
-            )
+
         }
     }
 
 }
 
+
 @Preview
 @Composable
-fun DefaultPreview(){
-   SpaceXAppTheme {
+fun DefaultPreview() {
+    SpaceXAppTheme {
+        RocketItemScreen(
+            state = RocketViewState(
+                rocketList = listOf(
+                    RocketModel(
+                        rocketName = "Example 1",
+                        description = "Description 1",
+                        height = RocketHeightModel(
+                            feet = "50",
+                            meters = "10"
+                        ),
+                        mass = RocketMassModel(
+                            kg = "1000",
+                            lb = "2000"
+                        ),
+                        firstFlight = "2006-03-24",
+                        company = "SpaceX",
+                        country = "Republic of the Marshall Islands",
+                        rocketType = "rocket",
+                        rocketID = "falcon1",
+                        costPerLaunch = "6700000$",
+                        landingLegs = LandingLegsModel(
+                            materialLandingLegs = "null",
+                            numberLandingLegs = "0"
+                        ),
+                        wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
+                        /*flickrImages = FlickrImagesModel(
+                            flickrImages1 ="https://imgur.com/DaCfMsj.jpg" ,
+                            flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
+                        )*/
 
-       RocketItemScreen(
-           state = RocketViewState(),
-           onClicked = {}
-       )
-   }
+                    ),
+                    RocketModel(
+                        rocketName = "Example 2",
+                        description = "Description 2",
+                        height = RocketHeightModel(
+                            feet = "40",
+                            meters = "80"
+                        ),
+                        mass = RocketMassModel(
+                            kg = "800",
+                            lb = "1600"
+                        ),
+                        firstFlight = "2006-03-24",
+                        company = "SpaceX",
+                        country = "Republic of the Marshall Islands",
+                        rocketType = "rocket",
+                        rocketID = "falcon1",
+                        costPerLaunch = "6700000$",
+                        landingLegs = LandingLegsModel(
+                            materialLandingLegs = "null",
+                            numberLandingLegs = "0"
+                        ),
+                        wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
+                        /*flickrImages = FlickrImagesModel(
+                            flickrImages1 = "https://imgur.com/DaCfMsj.jpg" ,
+                            flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
+                        )*/
+
+                    ),
+                    RocketModel(
+                        rocketName = "Example 2",
+                        description = "Description 2",
+                        height = RocketHeightModel(
+                            feet = "40",
+                            meters = "80"
+                        ),
+                        mass = RocketMassModel(
+                            kg = "800",
+                            lb = "1600"
+                        ),
+                        firstFlight = "2006-03-24",
+                        company = "SpaceX",
+                        country = "Republic of the Marshall Islands",
+                        rocketType = "rocket",
+                        rocketID = "falcon1",
+                        costPerLaunch = "6700000$",
+                        landingLegs = LandingLegsModel(
+                            materialLandingLegs = "null",
+                            numberLandingLegs = "0"
+                        ),
+                        wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
+                        /* flickrImages = FlickrImagesModel(
+                             flickrImages1 = "https://imgur.com/DaCfMsj.jpg" ,
+                             flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
+                         )*/
+
+                    ),
+                    RocketModel(
+                        rocketName = "Example 2",
+                        description = "Description 2",
+                        height = RocketHeightModel(
+                            feet = "40",
+                            meters = "80"
+                        ),
+                        mass = RocketMassModel(
+                            kg = "800",
+                            lb = "1600"
+                        ),
+                        firstFlight = "2006-03-24",
+                        company = "SpaceX",
+                        country = "Republic of the Marshall Islands",
+                        rocketType = "rocket",
+                        rocketID = "falcon1",
+                        costPerLaunch = "6700000$",
+                        landingLegs = LandingLegsModel(
+                            materialLandingLegs = "null",
+                            numberLandingLegs = "0"
+                        ),
+                        wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
+                        /*flickrImages = FlickrImagesModel(
+                            flickrImages1 = "https://imgur.com/DaCfMsj.jpg" ,
+                            flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
+                        )*/
+                    ),
+
+                    )
+            ),
+            onClicked = {}
+        )
+    }
 }

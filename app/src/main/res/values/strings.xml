@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SpaceXApp</string>
+    <string name="Rockets_Catalog">Rockets Catalog:</string>
 </resources>

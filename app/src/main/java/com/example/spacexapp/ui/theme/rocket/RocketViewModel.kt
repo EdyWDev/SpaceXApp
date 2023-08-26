@@ -30,7 +30,7 @@ class RocketViewModel @Inject constructor(
                     it.copy(rocketList = rocketResponse)
                 }
             } catch(e: Exception){
-                Log.e("EEEE", "BLAD Z ROCKET")
+                Log.e("EEEE", "BLAD Z ROCKET, ${e.message}")
             }
         }
     }

@@ -7,9 +7,7 @@ import com.example.spacexapp.ui.theme.history.model.HistoryModel
 import com.example.spacexapp.ui.theme.history.model.LinksModel
 import com.example.spacexapp.ui.theme.missions.model.MissionsDTO
 import com.example.spacexapp.ui.theme.missions.model.MissionsModel
-import com.example.spacexapp.ui.theme.rocket.model.RocketDTO
-import com.example.spacexapp.ui.theme.rocket.model.RocketHeightModel
-import com.example.spacexapp.ui.theme.rocket.model.RocketModel
+import com.example.spacexapp.ui.theme.rocket.model.*
 import com.example.spacexapp.ui.theme.upcomingmissions.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -51,8 +49,26 @@ fun RocketDTO.toDomainRocketsModel(): RocketModel{
         height = RocketHeightModel(
             feet = this.height.feet,
             meters = this.height.meters
+        ),
+        mass = RocketMassModel(
+            kg = this.mass.kg,
+            lb = this.mass.lb
+        ),
+        firstFlight = this.firstFlight,
+        company = this.company,
+        country = this.country,
+        rocketType = this.rocketType,
+        costPerLaunch = this.costPerLaunch,
+        rocketID = this.rocketID,
+        /*flickrImages = FlickrImagesModel(
+            flickrImages0 = this.flickrImages.flickrImages0,
+            flickrImages1 = this.flickrImages.flickrImages1
+        ),*/
+        wikipediaURL = this.wikipediaURL,
+        landingLegs = LandingLegsModel(
+            numberLandingLegs = this.landingLegs?.numberLandingLegs,
+            materialLandingLegs = this.landingLegs?.materialLandingLegs
         )
-
     )
 }
 
