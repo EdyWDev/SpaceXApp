@@ -31,10 +31,7 @@ import com.example.spacexapp.ui.theme.SpaceXAppTheme
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToWelcomeActivity
 import com.example.spacexapp.ui.theme.rocket.RocketViewModel
 import com.example.spacexapp.ui.theme.rocket.RocketViewState
-import com.example.spacexapp.ui.theme.rocket.model.LandingLegsModel
-import com.example.spacexapp.ui.theme.rocket.model.RocketHeightModel
-import com.example.spacexapp.ui.theme.rocket.model.RocketMassModel
-import com.example.spacexapp.ui.theme.rocket.model.RocketModel
+import com.example.spacexapp.ui.theme.rocket.model.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -127,26 +124,28 @@ fun ListOfRockets(
                 .background(color = Color.Black)
         ) {
             Text(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                 text = "Rocket: ${item.rocketName}",
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontStyle = FontStyle.Italic
             )
-            Text(
-                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
-                text = "Rocket Type: ${item.rocketType}",
-                color = Color.White,
-                fontWeight = FontWeight.Light,
-                fontStyle = FontStyle.Italic
-            )
-            Text(
-                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
-                text = "Rocket ID: ${item.rocketID}",
-                color = Color.White,
-                fontWeight = FontWeight.Light,
-                fontStyle = FontStyle.Italic
-            )
+            Row{
+                Text(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                    text = "Rocket Type: ${item.rocketType}",
+                    color = Color.White,
+                    fontWeight = FontWeight.Light,
+                    fontStyle = FontStyle.Italic
+                )
+                Text(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical =8.dp),
+                    text = "Rocket ID: ${item.rocketID}",
+                    color = Color.White,
+                    fontWeight = FontWeight.Light,
+                    fontStyle = FontStyle.Italic
+                )
+            }
             Text(
                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                 text = item.description,
@@ -154,27 +153,31 @@ fun ListOfRockets(
                 fontWeight = FontWeight.Light,
                 fontStyle = FontStyle.Italic
             )
-            Text(
+
+            Row{
+                Text(
                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                 text = "Height: ${item.height.meters} meters",
                 color = Color.White,
                 fontWeight = FontWeight.Light,
                 fontStyle = FontStyle.Italic
             )
-            Text(
-                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
-                text = "Mass: ${item.mass.kg} kg",
-                color = Color.White,
-                fontWeight = FontWeight.Light,
-                fontStyle = FontStyle.Italic
-            )
-            Text(
-                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
-                text = "Diameter: ${item.height.feet} meters",
-                color = Color.White,
-                fontWeight = FontWeight.Light,
-                fontStyle = FontStyle.Italic
-            )
+                Text(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                    text = "Mass: ${item.mass.kg} kg",
+                    color = Color.White,
+                    fontWeight = FontWeight.Light,
+                    fontStyle = FontStyle.Italic
+                )
+            }
+                Text(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                    text = "Diameter: ${item.height.feet} meters",
+                    color = Color.White,
+                    fontWeight = FontWeight.Light,
+                    fontStyle = FontStyle.Italic
+                )
+
             Text(
                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                 text = "First flight: ${item.firstFlight}",
@@ -197,12 +200,32 @@ fun ListOfRockets(
                 fontStyle = FontStyle.Italic
             )
             Text(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                 text = item.wikipediaURL,
                 color = Color.White,
                 fontStyle = FontStyle.Italic,
                 fontWeight = FontWeight.Light
             )
+            Row{
+                item.landingLegs.materialLandingLegs?.let {materialLandingLegs->
+                    Text(
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                        text = "Material Landing Legs: $materialLandingLegs",
+                        color = Color.White,
+                        fontWeight = FontWeight.Light,
+                        fontStyle = FontStyle.Italic
+                    )
+                    item.landingLegs.numberLandingLegs?.let{numberLandingLegs->
+                        Text(
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                            text = "Quantity: $numberLandingLegs",
+                            color = Color.White,
+                            fontStyle = FontStyle.Italic,
+                            fontWeight = FontWeight.Light
+                        )
+                    }
+                }
+            }
 
         }
     }
@@ -239,39 +262,11 @@ fun DefaultPreview() {
                             numberLandingLegs = "0"
                         ),
                         wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
-                        /*flickrImages = FlickrImagesModel(
-                            flickrImages1 ="https://imgur.com/DaCfMsj.jpg" ,
-                            flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
-                        )*/
-
-                    ),
-                    RocketModel(
-                        rocketName = "Example 2",
-                        description = "Description 2",
-                        height = RocketHeightModel(
-                            feet = "40",
-                            meters = "80"
-                        ),
-                        mass = RocketMassModel(
-                            kg = "800",
-                            lb = "1600"
-                        ),
-                        firstFlight = "2006-03-24",
-                        company = "SpaceX",
-                        country = "Republic of the Marshall Islands",
-                        rocketType = "rocket",
-                        rocketID = "falcon1",
-                        costPerLaunch = "6700000$",
-                        landingLegs = LandingLegsModel(
-                            materialLandingLegs = "null",
-                            numberLandingLegs = "0"
-                        ),
-                        wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
-                        /*flickrImages = FlickrImagesModel(
+                        active = "true",
+                        flickrImages = FlickrImagesModel(
                             flickrImages1 = "https://imgur.com/DaCfMsj.jpg" ,
                             flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
-                        )*/
-
+                        )
                     ),
                     RocketModel(
                         rocketName = "Example 2",
@@ -295,38 +290,67 @@ fun DefaultPreview() {
                             numberLandingLegs = "0"
                         ),
                         wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
-                        /* flickrImages = FlickrImagesModel(
-                             flickrImages1 = "https://imgur.com/DaCfMsj.jpg" ,
-                             flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
-                         )*/
-
-                    ),
-                    RocketModel(
-                        rocketName = "Example 2",
-                        description = "Description 2",
-                        height = RocketHeightModel(
-                            feet = "40",
-                            meters = "80"
-                        ),
-                        mass = RocketMassModel(
-                            kg = "800",
-                            lb = "1600"
-                        ),
-                        firstFlight = "2006-03-24",
-                        company = "SpaceX",
-                        country = "Republic of the Marshall Islands",
-                        rocketType = "rocket",
-                        rocketID = "falcon1",
-                        costPerLaunch = "6700000$",
-                        landingLegs = LandingLegsModel(
-                            materialLandingLegs = "null",
-                            numberLandingLegs = "0"
-                        ),
-                        wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
-                        /*flickrImages = FlickrImagesModel(
+                        active = "true",
+                        flickrImages = FlickrImagesModel(
                             flickrImages1 = "https://imgur.com/DaCfMsj.jpg" ,
                             flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
-                        )*/
+                        )
+                    ),
+                    RocketModel(
+                        rocketName = "Example 2",
+                        description = "Description 2",
+                        height = RocketHeightModel(
+                            feet = "40",
+                            meters = "80"
+                        ),
+                        mass = RocketMassModel(
+                            kg = "800",
+                            lb = "1600"
+                        ),
+                        firstFlight = "2006-03-24",
+                        company = "SpaceX",
+                        country = "Republic of the Marshall Islands",
+                        rocketType = "rocket",
+                        rocketID = "falcon1",
+                        costPerLaunch = "6700000$",
+                        landingLegs = LandingLegsModel(
+                            materialLandingLegs = "null",
+                            numberLandingLegs = "0"
+                        ),
+                        wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
+                        active = "true",
+                        flickrImages = FlickrImagesModel(
+                            flickrImages1 = "https://imgur.com/DaCfMsj.jpg" ,
+                            flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
+                        )
+                    ),
+                    RocketModel(
+                        rocketName = "Example 2",
+                        description = "Description 2",
+                        height = RocketHeightModel(
+                            feet = "40",
+                            meters = "80"
+                        ),
+                        mass = RocketMassModel(
+                            kg = "800",
+                            lb = "1600"
+                        ),
+                        firstFlight = "2006-03-24",
+                        company = "SpaceX",
+                        country = "Republic of the Marshall Islands",
+                        rocketType = "rocket",
+                        rocketID = "falcon1",
+                        costPerLaunch = "6700000$",
+                        landingLegs = LandingLegsModel(
+                            materialLandingLegs = "null",
+                            numberLandingLegs = "0"
+                        ),
+                        wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
+                        active = "true",
+                        flickrImages = FlickrImagesModel(
+                            flickrImages1 = "https://imgur.com/DaCfMsj.jpg" ,
+                            flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
+                        )
                     ),
 
                     )

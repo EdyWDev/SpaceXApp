@@ -19,11 +19,12 @@ data class RocketDTO (
     val costPerLaunch: String,
     @SerializedName("rocket_id")
     val rocketID: String,
-  //  @SerializedName("flickr_images")
-  //  val flickrImages: FlickrImagesDTO,
+    @SerializedName("flickr_images")
+    val flickrImages: FlickrImagesDTO,
     @SerializedName("wikipedia")
     val wikipediaURL: String,
     @SerializedName("landing_legs")
-    val landingLegs: LandingLegsDTO?
+    val landingLegs: LandingLegsDTO?,
+    val active: String
 
     )

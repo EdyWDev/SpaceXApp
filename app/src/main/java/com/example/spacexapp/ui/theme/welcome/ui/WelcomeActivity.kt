@@ -148,12 +148,16 @@ fun NewWelcomeActivity(
 
                     state.cellList.forEach { item ->
                         ListOfItems(items = item) {
-                            if (item.id == 2){
-                                onUpcomingMissions.invoke()
-                            }else if(item.id == 1){
-                                onAllLaunches.invoke()
-                            } else{
-                                Log.e("EEEE", "onClick from ${item.id}")
+                            when (item.id) {
+                                2 -> {
+                                    onUpcomingMissions.invoke()
+                                }
+                                1 -> {
+                                    onAllLaunches.invoke()
+                                }
+                                else -> {
+                                    Log.e("EEEE", "onClick from ${item.id}")
+                                }
                             }
 
                         }

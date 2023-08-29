@@ -60,14 +60,15 @@ fun RocketDTO.toDomainRocketsModel(): RocketModel{
         rocketType = this.rocketType,
         costPerLaunch = this.costPerLaunch,
         rocketID = this.rocketID,
-        /*flickrImages = FlickrImagesModel(
-            flickrImages0 = this.flickrImages.flickrImages0,
-            flickrImages1 = this.flickrImages.flickrImages1
-        ),*/
         wikipediaURL = this.wikipediaURL,
         landingLegs = LandingLegsModel(
             numberLandingLegs = this.landingLegs?.numberLandingLegs,
             materialLandingLegs = this.landingLegs?.materialLandingLegs
+        ),
+        active = this.active,
+        flickrImages = FlickrImagesModel(
+            flickrImages0 = this.flickrImages.flickrImages0,
+            flickrImages1 = this.flickrImages.flickrImages1
         )
     )
 }
