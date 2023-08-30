@@ -40,12 +40,12 @@ class SpaceXRepository(
         withContext(Dispatchers.IO){
             spaceXService.getRocketModel(url = ROCKET).map { it.toDomainRocketsModel() }
         }
-}
+    }
 
 fun RocketDTO.toDomainRocketsModel(): RocketModel{
     return RocketModel(
-        rocketName = this.rocketName,
-        description = this.description,
+        rocketName = rocketName,
+        description = description,
         height = RocketHeightModel(
             feet = this.height.feet,
             meters = this.height.meters
@@ -66,11 +66,8 @@ fun RocketDTO.toDomainRocketsModel(): RocketModel{
             materialLandingLegs = this.landingLegs?.materialLandingLegs
         ),
         active = this.active,
-        flickrImages = FlickrImagesModel(
-            flickrImages0 = this.flickrImages.flickrImages0,
-            flickrImages1 = this.flickrImages.flickrImages1
+        flickrImages = this.flickrImages
         )
-    )
 }
 
 fun AllLaunchesDTO.toDomainAllLaunchesModel(): AllLaunchesModel {

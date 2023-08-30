@@ -14,7 +14,7 @@ data class RocketModel(
     val rocketType: String,
     val costPerLaunch: String,
     val rocketID: String,
-    val flickrImages: FlickrImagesModel,
+    val flickrImages: List<String>,
     val wikipediaURL: String,
     val landingLegs: LandingLegsModel,
     val active: String

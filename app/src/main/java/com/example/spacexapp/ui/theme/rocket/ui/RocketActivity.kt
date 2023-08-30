@@ -21,7 +21,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -130,7 +129,7 @@ fun ListOfRockets(
                 fontWeight = FontWeight.Bold,
                 fontStyle = FontStyle.Italic
             )
-            Row{
+            Row {
                 Text(
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                     text = "Rocket Type: ${item.rocketType}",
@@ -139,7 +138,7 @@ fun ListOfRockets(
                     fontStyle = FontStyle.Italic
                 )
                 Text(
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical =8.dp),
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                     text = "Rocket ID: ${item.rocketID}",
                     color = Color.White,
                     fontWeight = FontWeight.Light,
@@ -154,14 +153,14 @@ fun ListOfRockets(
                 fontStyle = FontStyle.Italic
             )
 
-            Row{
+            Row {
                 Text(
-                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
-                text = "Height: ${item.height.meters} meters",
-                color = Color.White,
-                fontWeight = FontWeight.Light,
-                fontStyle = FontStyle.Italic
-            )
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                    text = "Height: ${item.height.meters} meters",
+                    color = Color.White,
+                    fontWeight = FontWeight.Light,
+                    fontStyle = FontStyle.Italic
+                )
                 Text(
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                     text = "Mass: ${item.mass.kg} kg",
@@ -170,13 +169,13 @@ fun ListOfRockets(
                     fontStyle = FontStyle.Italic
                 )
             }
-                Text(
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
-                    text = "Diameter: ${item.height.feet} meters",
-                    color = Color.White,
-                    fontWeight = FontWeight.Light,
-                    fontStyle = FontStyle.Italic
-                )
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = "Diameter: ${item.height.feet} meters",
+                color = Color.White,
+                fontWeight = FontWeight.Light,
+                fontStyle = FontStyle.Italic
+            )
 
             Text(
                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
@@ -206,8 +205,8 @@ fun ListOfRockets(
                 fontStyle = FontStyle.Italic,
                 fontWeight = FontWeight.Light
             )
-            Row{
-                item.landingLegs.materialLandingLegs?.let {materialLandingLegs->
+            Row {
+                item.landingLegs.materialLandingLegs?.let { materialLandingLegs ->
                     Text(
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                         text = "Material Landing Legs: $materialLandingLegs",
@@ -215,7 +214,7 @@ fun ListOfRockets(
                         fontWeight = FontWeight.Light,
                         fontStyle = FontStyle.Italic
                     )
-                    item.landingLegs.numberLandingLegs?.let{numberLandingLegs->
+                    item.landingLegs.numberLandingLegs?.let { numberLandingLegs ->
                         Text(
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                             text = "Quantity: $numberLandingLegs",
@@ -226,6 +225,7 @@ fun ListOfRockets(
                     }
                 }
             }
+
 
         }
     }
@@ -263,9 +263,9 @@ fun DefaultPreview() {
                         ),
                         wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
                         active = "true",
-                        flickrImages = FlickrImagesModel(
-                            flickrImages1 = "https://imgur.com/DaCfMsj.jpg" ,
-                            flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
+                        flickrImages = listOf(
+                            "https://farm4.staticflickr.com/3955/32915197674_eee74d81bb_b.jpg",
+                            "https://farm1.staticflickr.com/293/32312415025_6841e30bf1_b.jpg"
                         )
                     ),
                     RocketModel(
@@ -291,9 +291,9 @@ fun DefaultPreview() {
                         ),
                         wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
                         active = "true",
-                        flickrImages = FlickrImagesModel(
-                            flickrImages1 = "https://imgur.com/DaCfMsj.jpg" ,
-                            flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
+                        flickrImages = listOf(
+                            "https://farm4.staticflickr.com/3955/32915197674_eee74d81bb_b.jpg",
+                            "https://farm1.staticflickr.com/293/32312415025_6841e30bf1_b.jpg"
                         )
                     ),
                     RocketModel(
@@ -319,9 +319,9 @@ fun DefaultPreview() {
                         ),
                         wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
                         active = "true",
-                        flickrImages = FlickrImagesModel(
-                            flickrImages1 = "https://imgur.com/DaCfMsj.jpg" ,
-                            flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
+                        flickrImages = listOf(
+                            "https://farm4.staticflickr.com/3955/32915197674_eee74d81bb_b.jpg",
+                            "https://farm1.staticflickr.com/293/32312415025_6841e30bf1_b.jpg"
                         )
                     ),
                     RocketModel(
@@ -347,9 +347,9 @@ fun DefaultPreview() {
                         ),
                         wikipediaURL = "https://en.wikipedia.org/wiki/Falcon_1",
                         active = "true",
-                        flickrImages = FlickrImagesModel(
-                            flickrImages1 = "https://imgur.com/DaCfMsj.jpg" ,
-                            flickrImages0 = "https://imgur.com/DaCfMsj.jpg"
+                        flickrImages = listOf(
+                            "https://farm4.staticflickr.com/3955/32915197674_eee74d81bb_b.jpg",
+                            "https://farm1.staticflickr.com/293/32312415025_6841e30bf1_b.jpg"
                         )
                     ),
 
@@ -359,3 +359,4 @@ fun DefaultPreview() {
         )
     }
 }
+

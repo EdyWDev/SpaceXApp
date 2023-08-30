@@ -20,7 +20,7 @@ data class RocketDTO (
     @SerializedName("rocket_id")
     val rocketID: String,
     @SerializedName("flickr_images")
-    val flickrImages: FlickrImagesDTO,
+    val flickrImages: List<String>,
     @SerializedName("wikipedia")
     val wikipediaURL: String,
     @SerializedName("landing_legs")

@@ -1,7 +1,6 @@
 package com.example.spacexapp.ui.theme.service
 
 import com.example.spacexapp.ui.theme.allLaunches.model.AllLaunchesDTO
-import com.example.spacexapp.ui.theme.allLaunches.model.AllLaunchesModel
 import com.example.spacexapp.ui.theme.missions.model.MissionsDTO
 import com.example.spacexapp.ui.theme.history.model.HistoryDTO
 import com.example.spacexapp.ui.theme.rocket.model.RocketDTO
@@ -25,4 +24,7 @@ interface SpaceXService {
 
     @GET
     suspend fun getRocketModel(@Url url: String): List<RocketDTO>
+
+    @GET
+    suspend fun getImageRocketModel(@Url url: String): List<FlickrImagesDTO>
 }
