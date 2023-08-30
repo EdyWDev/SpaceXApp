@@ -20,11 +20,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.spacexapp.R
 import com.example.spacexapp.ui.theme.SpaceXAppTheme
 import com.example.spacexapp.ui.theme.navigationManager.SpaceXNavigationManager.navigateToWelcomeActivity
@@ -100,6 +105,7 @@ fun RocketItemScreen(
     }
 }
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
 fun ListOfRockets(
     item: RocketModel
@@ -145,6 +151,24 @@ fun ListOfRockets(
                     fontStyle = FontStyle.Italic
                 )
             }
+            AsyncImage(
+                      model = ImageRequest.Builder(LocalContext.current)
+                          .data(item.flickrImages[0])
+                          .build(),
+                      contentDescription = "This is an example image",
+                      modifier = Modifier.fillMaxWidth()
+                          .padding(horizontal = 16.dp, vertical = 16.dp),
+                              contentScale = ContentScale.Crop
+                  )
+                  AsyncImage(
+                      model = ImageRequest.Builder(LocalContext.current)
+                          .data(item.flickrImages[1])
+                          .build(),
+                      contentDescription = "This is an example image",
+                      modifier = Modifier.fillMaxWidth()
+                          .padding(horizontal = 16.dp, vertical = 16.dp),
+                      contentScale = ContentScale.Crop
+                  )
             Text(
                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                 text = item.description,
@@ -152,7 +176,6 @@ fun ListOfRockets(
                 fontWeight = FontWeight.Light,
                 fontStyle = FontStyle.Italic
             )
-
             Row {
                 Text(
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
@@ -225,7 +248,6 @@ fun ListOfRockets(
                     }
                 }
             }
-
 
         }
     }

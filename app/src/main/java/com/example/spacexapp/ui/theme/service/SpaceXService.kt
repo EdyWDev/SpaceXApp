@@ -25,6 +25,4 @@ interface SpaceXService {
     @GET
     suspend fun getRocketModel(@Url url: String): List<RocketDTO>
 
-    @GET
-    suspend fun getImageRocketModel(@Url url: String): List<FlickrImagesDTO>
 }
