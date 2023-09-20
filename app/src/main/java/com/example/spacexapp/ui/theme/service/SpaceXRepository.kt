@@ -1,7 +1,6 @@
 package com.example.spacexapp.ui.theme.service
 
-import com.example.spacexapp.ui.theme.allLaunches.model.AllLaunchesDTO
-import com.example.spacexapp.ui.theme.allLaunches.model.AllLaunchesModel
+import com.example.spacexapp.ui.theme.allLaunches.model.*
 import com.example.spacexapp.ui.theme.history.model.HistoryDTO
 import com.example.spacexapp.ui.theme.history.model.HistoryModel
 import com.example.spacexapp.ui.theme.history.model.LinksModel
@@ -74,7 +73,22 @@ fun AllLaunchesDTO.toDomainAllLaunchesModel(): AllLaunchesModel {
     return AllLaunchesModel(
         flightNumber = this.flightNumber,
         missionName = this.missionName,
-        launchDateLocal = this.launchDateLocal
+        launchYear = this.launchYear,
+        launchDateLocal = this.launchDateLocal,
+        rocket = RocketAllLaunchesModel(
+            rocketName = this.rocket.rocketName,
+            rocketType = this.rocket.rocketType
+        ),
+        launchSite = LaunchSiteAllLaunchesModel(
+            siteNameLong = this.launchSite.siteNameLong
+        ),
+        details = this.details,
+        links = LinksAllLaunchesModel(
+            missionPatchSmall = this.links.missionPatchSmall,
+            articleLink = this.links.articleLink,
+            videoLink = this.links.videoLink
+        )
+
     )
 }
 
