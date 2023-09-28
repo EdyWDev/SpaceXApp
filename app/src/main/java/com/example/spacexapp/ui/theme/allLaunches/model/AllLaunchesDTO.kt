@@ -12,10 +12,8 @@ data class AllLaunchesDTO (
     @SerializedName("launch_date_local")
     val launchDateLocal: String,
     val rocket: RocketAllLaunchesDTO,
+    @SerializedName("launch_site")
     val launchSite: LaunchSiteAllLaunchesDTO,
     val details: String,
     val links: LinksAllLaunchesDTO,
-
-
-
         )

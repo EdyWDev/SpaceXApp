@@ -80,7 +80,7 @@ fun AllLaunchesDTO.toDomainAllLaunchesModel(): AllLaunchesModel {
             rocketType = this.rocket.rocketType
         ),
         launchSite = LaunchSiteAllLaunchesModel(
-            siteNameLong = this.launchSite.siteNameLong
+           siteNameLong = this.launchSite.siteNameLong
         ),
         details = this.details,
         links = LinksAllLaunchesModel(
