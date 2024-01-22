@@ -7,6 +7,7 @@ data class AllLaunchesModel (
     val launchDateLocal: String?,
     val rocket: RocketAllLaunchesModel?,
     val launchSite: LaunchSiteAllLaunchesModel?,
+    var launchSuccess: String?,
     val details: String?,
     val links: LinksAllLaunchesModel?
         )

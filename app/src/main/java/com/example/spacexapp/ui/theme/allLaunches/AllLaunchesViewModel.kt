@@ -1,6 +1,8 @@
 package com.example.spacexapp.ui.theme.allLaunches
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.spacexapp.ui.theme.service.SpaceXRepository
@@ -19,6 +21,29 @@ class AllLaunchesViewModel @Inject constructor(
     private val _viewState = MutableStateFlow(value = AllLaunchesViewState())
     val viewState = _viewState.asStateFlow()
 
+
+    private val _launchSuccessLiveData = MutableLiveData<String>()
+    val launchSuccessLiveData: LiveData<String> = _launchSuccessLiveData
+
+    // do przechowywania inf wyswietlanyych w UI
+    private val _displayTextLiveData = MutableLiveData<String>()
+
+    // live data z textem tylko do odczytu
+    val displayTextLiveData: LiveData<String>
+    get() = _displayTextLiveData
+
+    // metoda do ustawienia wartosci launchSuccessLiveData
+    fun setLaunchSuccessText(success: String){
+        _launchSuccessLiveData.value = success
+
+        // ustawienie inf jaka ma sie wyswietlic w UI
+        _displayTextLiveData.value = if(success == "true"){
+            "Yes"
+        } else {
+            "No"
+        }
+    }
+
     init{
         loadAllLaunches()
     }
@@ -30,7 +55,7 @@ class AllLaunchesViewModel @Inject constructor(
                     it.copy(allLaunchesList = allLaunchesResponse)
                 }
             } catch(e: Exception){
-                Log.e("EEE", "BŁĄD Z ALL LAUNCHES")
+                Log.e("EEE", "BŁĄD Z ALL LAUNCHES  ${e.message}" )
             }
         }
     }

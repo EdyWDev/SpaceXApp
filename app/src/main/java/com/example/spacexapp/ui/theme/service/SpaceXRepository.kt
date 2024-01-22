@@ -82,6 +82,7 @@ fun AllLaunchesDTO.toDomainAllLaunchesModel(): AllLaunchesModel {
         launchSite = LaunchSiteAllLaunchesModel(
            siteNameLong = this.launchSite.siteNameLong
         ),
+        launchSuccess = this.launchSuccess,
         details = this.details,
         links = LinksAllLaunchesModel(
             missionPatchSmall = this.links.missionPatchSmall,

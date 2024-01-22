@@ -26,6 +26,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Observer
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.spacexapp.ui.theme.SpaceXAppTheme
 import com.example.spacexapp.ui.theme.allLaunches.AllLaunchesViewModel
 import com.example.spacexapp.ui.theme.allLaunches.AllLaunchesViewState
@@ -89,7 +91,8 @@ fun AllLaunchesUI(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             state.allLaunchesList.forEach { item ->
-                ListOfAllLaunchesElement(items = item)
+                                                      // CZY TU MA BYC TAKI ZAPIS? VIEWMODEL = VIEW MODEL??
+                ListOfAllLaunchesElement(items = item, viewModel = viewModel())
             }
 
         }
@@ -99,8 +102,10 @@ fun AllLaunchesUI(
 
 @Composable
 fun ListOfAllLaunchesElement(
-    items: AllLaunchesModel
+    items: AllLaunchesModel,
+    viewModel: AllLaunchesViewModel
 ) {
+
     Card(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 16.dp)
@@ -116,25 +121,59 @@ fun ListOfAllLaunchesElement(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 16.dp
+                .padding(
+                    horizontal = 16.dp, vertical = 16.dp
 
                 )
+                
         ) {
             Text(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = "Flight: Flight ${items.flightNumber}",
+                color =  Color.White,
+                fontWeight = FontWeight.Light,
+                fontStyle = FontStyle.Italic
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                 text = "Mission: ${items.missionName}",
                 color = Color.White,
                 fontWeight = FontWeight.Light,
                 fontStyle = FontStyle.Italic
             )
+            items.launchDateLocal?.let {
+                Text(
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                    text = "Date: $it",
+                    color = Color.White,
+                    fontWeight = FontWeight.Light,
+                    fontStyle = FontStyle.Italic
+
+                )
+            }
             Text(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
-                text = items.launchDateLocal,
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = "Rocket: ${items.rocket?.rocketName}, ${items.rocket?.rocketType}",
                 color = Color.White,
                 fontWeight = FontWeight.Light,
                 fontStyle = FontStyle.Italic
-
             )
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = "Launch Site: ${items.launchSite?.siteNameLong}",
+                color = Color.White,
+                fontWeight = FontWeight.Light,
+                fontStyle = FontStyle.Italic
+            )
+          
+            Text(
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                text = "Launch Success: ",
+                color = Color.White,
+                fontWeight = FontWeight.Light,
+                fontStyle = FontStyle.Italic
+            )
+
         }
     }
 }
