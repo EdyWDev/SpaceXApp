@@ -13,6 +13,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
@@ -117,33 +118,36 @@ fun NewWelcomeActivity(
 
             ) {
                 // SearchBar()
+               Spacer(modifier = Modifier.weight(1f))
                 Card(
                     modifier = Modifier
                         .padding(horizontal = 4.dp, vertical = 4.dp)
-                        .fillMaxWidth()
-                        .border(
-                            width = 1.dp,
-                            color = Color.White,
-                            shape = RoundedCornerShape(corner = CornerSize(16.dp))
-                        ),
+                        .fillMaxWidth(),
+                       // .border(
+                      //      width = 1.dp,
+                      //      color = Color.White,
+                      //      shape = RoundedCornerShape(corner = CornerSize(16.dp))
+                      //  ),
                     elevation = 2.dp,
                     backgroundColor = Color.Transparent,
                     shape = RoundedCornerShape(corner = CornerSize(16.dp))
                 ) {
                     Text(
-                        text = "Welcome to Rocket Tracker",
+                        text = "Rocket Tracker",
                         color = Color.White,
                         textAlign = TextAlign.Center,
-                        fontSize = 90.sp,
+                        fontSize = 50.sp,
                         fontFamily = FontFamily.SansSerif,
                         fontWeight = FontWeight.ExtraLight
                     )
                 }
+                Spacer(modifier = Modifier.weight(2f))
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .verticalScroll(rememberScrollState())
                         .weight(1F)
+
                 ) {
 
                     state.cellList.forEach { item ->
@@ -171,8 +175,6 @@ fun NewWelcomeActivity(
                             horizontal = 16.dp,
                             vertical = 8.dp
                         ),
-                    //.height(80.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Button(
                         onClick = onRocketClicked,
@@ -189,13 +191,14 @@ fun NewWelcomeActivity(
                                 contentDescription = "Rocket",
                                 tint = Color.Black,
                             )
-                            Spacer(modifier = Modifier.size(0.dp))
+                          //  Spacer(modifier = Modifier.size(0.dp))
                             Text(
                                 text = "Rocket",
                                 color = Color.Black
                             )
                         }
                     }
+                    Spacer(modifier = Modifier.weight(0.01f))
                     Button(
                         onClick = onMissionClicked,
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
@@ -211,13 +214,15 @@ fun NewWelcomeActivity(
                                 contentDescription = "Missions",
                                 tint = Color.Black,
                             )
-                            Spacer(modifier = Modifier.size(0.dp))
+                           // Spacer(modifier = Modifier.size(0.dp))
                             Text(
                                 text = "Mission",
                                 color = Color.Black
                             )
                         }
                     }
+                    Spacer(modifier = Modifier.weight(0.01f))
+
                     Button(
                         onClick = onHistoryClicked,
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
@@ -233,13 +238,14 @@ fun NewWelcomeActivity(
                                 contentDescription = "History",
                                 tint = Color.Black,
                             )
-                            Spacer(modifier = Modifier.size(0.dp))
+                          //  Spacer(modifier = Modifier.size(0.dp))
                             Text(
                                 text = "History",
                                 color = Color.Black
                             )
                         }
                     }
+                    Spacer(modifier = Modifier.weight(0.01f))
                     Button(
                         onClick = onHistoryClicked,
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
@@ -255,7 +261,7 @@ fun NewWelcomeActivity(
                                 contentDescription = null,
                                 tint = Color.Black
                             )
-                            Spacer(modifier = Modifier.size(0.dp))
+                           // Spacer(modifier = Modifier.size(0.dp))
                             Text(
                                 text = "Info",
                                 color = Color.Black,
